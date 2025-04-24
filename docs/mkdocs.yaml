@@ -1,0 +1,79 @@
+site_name: Azure Deep Research Workshop
+site_url: https://example.com/
+site_author: Microsoft
+site_description: >-
+  Learn how to build an AI-powered research assistant using Azure OpenAI, LangGraph, and FastAPI.
+
+repo_name: azure-deep-research-workshop
+repo_url: https://github.com/yourusername/azure-deep-research
+edit_uri: edit/main/docs/docs/
+
+theme:
+  name: material
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.expand
+    - navigation.indexes
+    - navigation.top
+    - content.code.copy
+    - content.action.edit
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  icon:
+    repo: fontawesome/brands/github
+  logo: media/magnifying-glass-logo.svg
+  favicon: media/favicon.ico
+
+plugins:
+  - search
+  - glightbox
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Labs:
+    - "Lab 1: Reasoning & Model Thoughts": lab-1-reasoning-thoughts.md
+    - "Lab 2: Web Research Integration": lab-2-web-research.md
+    - "Lab 3: Research Reflection": lab-3-reflection.md
+    - "Lab 4: Launching Your Researcher": lab-4-launch-researcher.md
+  - Resources: resources.md
+  - Summary: summary.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/yourusername/azure-deep-research
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/MSFTAzure
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/company/microsoft/
