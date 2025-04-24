@@ -1,0 +1,12 @@
+langchain-azure-ai
+langchain
+langgraph
+python-dotenv
+markdownify
+tavily-python
+fastapi
+uvicorn
+websockets
+pydantic
+python-multipart
+jinja2
