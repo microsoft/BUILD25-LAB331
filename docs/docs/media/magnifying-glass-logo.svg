@@ -1,0 +1,10 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Main Circle -->
+  <circle cx="80" cy="80" r="50" fill="none" stroke="#0078D4" stroke-width="12"/>
+  
+  <!-- Handle -->
+  <line x1="115" y1="115" x2="170" y2="170" stroke="#0078D4" stroke-width="14" stroke-linecap="round"/>
+  
+  <!-- Reflection highlight -->
+  <path d="M60 55 Q 65 50, 70 55" stroke="white" stroke-width="6" stroke-linecap="round" fill="none"/>
+</svg>
