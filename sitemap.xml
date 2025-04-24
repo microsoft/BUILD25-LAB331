@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://example.com/</loc>
+         <lastmod>2025-04-24</lastmod>
+    </url>
+    <url>
+         <loc>https://example.com/getting-started/</loc>
+         <lastmod>2025-04-24</lastmod>
+    </url>
+    <url>
+         <loc>https://example.com/lab-1-reasoning-thoughts/</loc>
+         <lastmod>2025-04-24</lastmod>
+    </url>
+    <url>
+         <loc>https://example.com/lab-2-web-research/</loc>
+         <lastmod>2025-04-24</lastmod>
+    </url>
+    <url>
+         <loc>https://example.com/lab-3-reflection/</loc>
+         <lastmod>2025-04-24</lastmod>
+    </url>
+    <url>
+         <loc>https://example.com/lab-4-launch-researcher/</loc>
+         <lastmod>2025-04-24</lastmod>
+    </url>
+</urlset>
