@@ -25,6 +25,14 @@
          <lastmod>2025-04-25</lastmod>
     </url>
     <url>
+         <loc>https://example.com/resources/</loc>
+         <lastmod>2025-04-25</lastmod>
+    </url>
+    <url>
+         <loc>https://example.com/summary/</loc>
+         <lastmod>2025-04-25</lastmod>
+    </url>
+    <url>
          <loc>https://example.com/includes/introduction-event/</loc>
          <lastmod>2025-04-25</lastmod>
     </url>
