@@ -1,5 +1,3 @@
-# Getting Started
-
 ## Microsoft Build Attendees
 
 The instructions on this page assume you are attending [Microsoft Build 2025](https://build.microsoft.com/){:target="_blank"} and have access to a pre-configured lab environment. This environment provides an Azure subscription with all the tools and resources needed to complete the workshop.
@@ -156,6 +154,3 @@ Use the navigation menu on the left to move between labs. Each lab includes:
     2. If the lab instructions are slow to scroll in the lab environment, try copying the instructions’ URL and opening it in **your computer’s local browser** for a smoother experience.
     3. If you have trouble viewing an image, simply **click the image to enlarge it**.
 
-## Next Steps
-
-Once your environment is set up, proceed to [Lab 1: Reasoning & Model Thoughts](lab-1-reasoning-thoughts.md) to begin building your research assistant.

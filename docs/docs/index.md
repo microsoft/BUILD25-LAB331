@@ -30,10 +30,9 @@ The workshop is organized into four labs:
 Before starting this workshop, ensure you have:
 
 - Python 3.10+ installed on your machine
-- An Azure account with access to Azure OpenAI Service
+- An Azure account with access to DeepSeek R1
 - A basic understanding of Python programming
-- Familiarity with web technologies (HTML, CSS, JavaScript)
-- Access to a Tavily API key for web search capability
+- Familiarity with VS Code
 
 ## Getting Started
 
