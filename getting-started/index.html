@@ -298,6 +298,19 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -309,6 +322,34 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -527,6 +568,23 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -550,19 +608,19 @@
 
 
 <h1 id="getting-started">Getting Started</h1>
-<p>This section will help you set up your environment for the Azure Deep Research Workshop.</p>
-<h1 id="getting-started_1">Getting Started</h1>
 <p>Select your workshop experience:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">@Build Workshop</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">@Build Workshop</label><label for="__tabbed_1_2">Self-Guided Learners</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>{% include-markdown "includes/introduction-event.md" %}</p>
 </div>
+<div class="tabbed-block">
+<p>{% include-markdown "includes/introduction-self-guided.md" %}</p>
 </div>
 </div>
-<!-- === "Self-Guided Learners"
-
-    {% include-markdown "includes/introduction-self-guided.md" %} -->
+</div>
+<h2 id="next-steps">Next Steps</h2>
+<p>Once your environment is set up, proceed to <a href="../lab-1-reasoning-thoughts/">Lab 1: Reasoning &amp; Model Thoughts</a> to begin building your research assistant.</p>
 
 
 
