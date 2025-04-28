@@ -5,7 +5,7 @@ echo "Deploying the Azure resources..."
 # Define resource group parameters
 RG_NAME="rg-agent-workshop"
 RG_LOCATION="eastus2"
-MODEL_NAME="gpt-4o"
+MODEL_NAME="DeepSeek-R1"
 AI_HUB_NAME="agent-wksp"
 AI_PROJECT_NAME="agent-workshop"
 AI_PROJECT_FRIENDLY_NAME="Agent-Service-Workshop"

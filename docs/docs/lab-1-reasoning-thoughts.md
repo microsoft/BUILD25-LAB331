@@ -4,7 +4,7 @@ In this lab, you'll learn about reasoning models and how to separate and visuali
 
 ## Understanding AI Reasoning
 
-Modern large language models like DeepSeek-R1 and GPT-4o have powerful reasoning capabilities, but they often hide their step-by-step thinking. By explicitly encouraging and capturing this thinking process, we can:
+Modern large language models like DeepSeek-R1 have powerful reasoning capabilities, but they often hide their step-by-step thinking. By explicitly encouraging and capturing this thinking process, we can:
 
 1. Improve the quality of final outputs
 2. Debug reasoning errors

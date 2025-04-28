@@ -9,7 +9,7 @@
       "value": "standard-project"
     }, 
     "modelName": {
-      "value": "gpt-4o-mini"
+      "value": "DeepSeek-R1"
     },
     "modelFormat": {
       "value": "OpenAI"
@@ -21,7 +21,7 @@
       "value": "GlobalStandard"
     },
     "modelCapacity": {
-      "value": 50
+      "value": 100
     },
     "modelLocation": {
       "value": "eastus"

@@ -59,6 +59,6 @@ The following resources will be created in the `rg-deep-research-workshop` resou
 
 - An **Azure AI Foundry hub** named **deep-research-wksp**
 - An **Azure AI Foundry project** named **Deep Research Workshop**
-- A **Serverless (pay-as-you-go) DeepSeek R1 model deployment** named **gpt-4o (Global 2024-08-06)**. See pricing details [here](https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/){:target="_blank"}.
+- A **Serverless (pay-as-you-go) DeepSeek R1 model deployment**. See pricing details [here](https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/){:target="_blank"}.
 
 We have provided a bash script to automate the deployment of the resources required for the workshop. Alternatively, you may deploy resources manually using Azure AI Foundry studio. Select the desired tab.

@@ -6,7 +6,7 @@ Congratulations on completing the Azure Deep Research Workshop! Let's recap what
 
 Over the course of this workshop, you've constructed a sophisticated AI research assistant that combines several cutting-edge technologies:
 
-- **Azure AI Service**: Leveraging DeepSeek-R1 and GPT-4o models for powerful reasoning
+- **Azure AI Service**: Leveraging DeepSeek-R1 for powerful reasoning
 - **LangChain & LangGraph**: Structuring complex AI workflows with state management
 - **Tavily API**: Integrating real-time web search capabilities
 - **FastAPI & WebSockets**: Creating a responsive web application with real-time updates

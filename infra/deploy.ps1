@@ -3,7 +3,7 @@ Write-Host "Deploying the Azure resources..."
 # Define resource group parameters
 $RG_NAME = "rg-agent-workshop"
 $RG_LOCATION = "westus"
-$MODEL_NAME = "gpt-4o"
+$MODEL_NAME = "DeepSeek-R1"
 $AI_HUB_NAME = "agent-wksp"
 $AI_PROJECT_NAME = "agent-workshop"
 $STORAGE_NAME = "agentservicestorage"
