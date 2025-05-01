@@ -1,0 +1,18 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+
+name: deepseek-python
+metadata:
+  template: deepseek-python@0.1.0
+requiredVersions:
+    azd: ">= 1.10.0"
+services:
+  aca:
+    project: ./src
+    language: py
+    host: containerapp
+    docker:
+      remoteBuild: true
+pipeline:
+  variables:
+    - SERVICE_ACA_RESOURCE_EXISTS
+    - DISABLE_KEY_BASED_AUTH

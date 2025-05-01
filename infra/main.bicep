@@ -1,128 +1,179 @@
-// Execute this main file to depoy Azure AI Foundry resources in the basic security configuraiton
+targetScope = 'subscription'
 
-// Parameters
-@minLength(2)
-@maxLength(12)
-@description('Name for the AI resource and used to derive name of dependent resources.')
-param aiHubName string = 'standard-hub'
+@minLength(1)
+@maxLength(64)
+@description('Name which is used to generate a short unique hash for each resource')
+param name string
 
-@description('Friendly name for your Azure AI resource')
-param aiHubFriendlyName string = 'Agents standard hub resource'
+@minLength(1)
+@description('Primary location for all resources')
+param location string
 
-@description('Description of your Azure AI resource dispayed in Azure AI Foundry')
-param aiHubDescription string = 'A standard hub resource required for the agent setup.'
+@description('Id of the user or app to assign application roles')
+param principalId string = ''
 
-@description('Name for the project')
-param aiProjectName string = 'standard-project'
+param acaExists bool = false
 
-@description('Friendly name for your Azure AI resource')
-param aiProjectFriendlyName string = 'Agents standard project resource'
+@minLength(1)
+@description('Location for the Azure AI resource')
+// https://learn.microsoft.com/azure/ai-studio/how-to/deploy-models-serverless-availability#deepseek-models-from-microsoft
+@allowed([
+  'eastus'
+  'eastus2'
+  'northcentralus'
+  'southcentralus'
+  'westus'
+  'westus3'
+])
+@metadata({
+  azd: {
+    type: 'location'
+  }
+})
+param aiServicesResourceLocation string
+param disableKeyBasedAuth bool = true
 
-@description('Description of your Azure AI resource dispayed in Azure AI Foundry')
-param aiProjectDescription string = 'A standard project resource required for the agent setup.'
+// Parameters for the specific Azure AI deployment:
+param aiServicesDeploymentName string = 'DeepSeek-R1'
 
-@description('Azure region used for the deployment of all resources.')
-param location string = resourceGroup().location
+@description('Service Management Reference for the Entra app registration')
+param serviceManagementReference string = ''
 
-@description('Set of tags to apply to all resources.')
-param tags object = {}
+var resourceToken = toLower(uniqueString(subscription().id, name, location))
+var tags = { 'azd-env-name': name }
 
-@description('Model name for deployment')
-param modelName string = 'DeepSeek-R1'
+resource resourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' = {
+  name: '${name}-rg'
+  location: location
+  tags: tags
+}
 
-@description('Model format for deployment')
-param modelFormat string = 'OpenAI'
+var prefix = '${name}-${resourceToken}'
 
-@description('Model version for deployment')
-param modelVersion string = '2024-08-06'
-
-@description('Model deployment SKU name')
-param modelSkuName string = 'GlobalStandard'
-
-@description('Model deployment capacity')
-param modelCapacity int = 140
-
-@description('Model deployment location. If you want to deploy an Azure AI resource/model in different location than the rest of the resources created.')
-param modelLocation string = 'eastus2'
-
-// Variables
-var name = toLower('${aiHubName}')
-var projectName = toLower('${aiProjectName}')
-
-@description('Name of the storage account')
-param storageName string = 'agentservicestorage'
-
-@description('Name of the Azure AI Services account')
-param aiServicesName string = 'agent-ai-services'
-
-// Create a short, unique suffix, that will be unique to each resource group
-// var uniqueSuffix = substring(uniqueString(resourceGroup().id), 0, 4)
-param deploymentTimestamp string = utcNow('yyyyMMddHHmmss')
-var uniqueSuffix = substring(uniqueString('${resourceGroup().id}-${deploymentTimestamp}'), 0, 4)
-
-// Dependent resources for the Azure Machine Learning workspace
-module aiDependencies 'modules-basic-keys/basic-dependent-resources-keys.bicep' = {
-  name: 'dependencies-${name}-${uniqueSuffix}-deployment'
+var aiServicesNameAndSubdomain = '${resourceToken}-aiservices'
+module aiServices 'br/public:avm/res/cognitive-services/account:0.7.2' = {
+  name: 'deepseek'
+  scope: resourceGroup
   params: {
-    aiServicesName: '${aiServicesName}-${uniqueSuffix}'
-    storageName: '${storageName}${uniqueSuffix}'
-    location: location
+    name: aiServicesNameAndSubdomain
+    location: aiServicesResourceLocation
     tags: tags
-
-     // Model deployment parameters
-     modelName: modelName
-     modelFormat: modelFormat
-     modelVersion: modelVersion
-     modelSkuName: modelSkuName
-     modelCapacity: modelCapacity
-     modelLocation: modelLocation
+    kind: 'AIServices'
+    customSubDomainName: aiServicesNameAndSubdomain
+    sku: 'S0'
+    publicNetworkAccess: 'Enabled'
+    deployments: [
+      {
+        name: aiServicesDeploymentName
+        model: {
+          format: 'DeepSeek'
+          name: 'DeepSeek-R1'
+          version: '1'
+        }
+        sku: {
+          name: 'GlobalStandard'
+          capacity: 1
+        }
+      }
+    ]
+    disableLocalAuth: disableKeyBasedAuth
+    roleAssignments: [
+      {
+        principalId: principalId
+        principalType: 'User'
+        roleDefinitionIdOrName: 'Cognitive Services User'
+      }
+    ]
   }
 }
 
-module aiHub 'modules-basic-keys/basic-ai-hub-keys.bicep' = {
-  name: 'ai-${name}-${uniqueSuffix}-deployment'
+module logAnalyticsWorkspace 'core/monitor/loganalytics.bicep' = {
+  name: 'loganalytics'
+  scope: resourceGroup
   params: {
-    // workspace organization
-    aiHubName: 'ai-${name}-${uniqueSuffix}'
-    aiHubFriendlyName: aiHubFriendlyName
-    aiHubDescription: aiHubDescription
+    name: '${prefix}-loganalytics'
     location: location
     tags: tags
-
-    // dependent resources
-    modelLocation: modelLocation
-    storageAccountId: aiDependencies.outputs.storageId
-    aiServicesId: aiDependencies.outputs.aiservicesID
-    aiServicesTarget: aiDependencies.outputs.aiservicesTarget
   }
 }
 
-module aiProject 'modules-basic-keys/basic-ai-project-keys.bicep' = {
-  name: 'ai-${projectName}-${uniqueSuffix}-deployment'
+// Container apps host (including container registry)
+module containerApps 'core/host/container-apps.bicep' = {
+  name: 'container-apps'
+  scope: resourceGroup
   params: {
-    // workspace organization
-    aiProjectName: 'ai-${projectName}-${uniqueSuffix}'
-    aiProjectFriendlyName: aiProjectFriendlyName
-    aiProjectDescription: aiProjectDescription
+    name: 'app'
     location: location
     tags: tags
-
-    // dependent resources
-    aiHubId: aiHub.outputs.aiHubID
+    containerAppsEnvironmentName: '${prefix}-containerapps-env'
+    containerRegistryName: '${replace(prefix, '-', '')}registry'
+    logAnalyticsWorkspaceName: logAnalyticsWorkspace.outputs.name
   }
 }
 
-// module bingSearchGrounding 'bing-grounding.bicep' = {
-//   name: 'bing-search-grounding'
-//   params: {
-//     name: 'bing-grounding-${uniqueSuffix}'
-//     location: location
-//     bingAccountName: 'ai-${aiServicesName}-bing-grounding'
-//   }
-// }
+// Container app frontend
+module aca 'aca.bicep' = {
+  name: 'aca'
+  scope: resourceGroup
+  params: {
+    name: replace('${take(prefix,19)}-ca', '--', '-')
+    location: location
+    tags: tags
+    identityName: '${prefix}-id-aca'
+    containerAppsEnvironmentName: containerApps.outputs.environmentName
+    containerRegistryName: containerApps.outputs.registryName
+    aiServicesDeploymentName: aiServicesDeploymentName
+    aiServicesEndpoint: 'https://${aiServices.outputs.name}.services.ai.azure.com/models'
+    exists: acaExists
+  }
+}
 
+var issuer = '${environment().authentication.loginEndpoint}${tenant().tenantId}/v2.0'
+module registration 'appregistration.bicep' = {
+  name: 'reg'
+  scope: resourceGroup
+  params: {
+    clientAppName: '${prefix}-entra-client-app'
+    clientAppDisplayName: 'DeepSeek Entra Client App'
+    webAppEndpoint: aca.outputs.uri
+    webAppIdentityId: aca.outputs.identityPrincipalId
+    issuer: issuer
+    serviceManagementReference: serviceManagementReference
+  }
+}
 
-output subscriptionId string = subscription().subscriptionId
-output resourceGroupName string = resourceGroup().name
-output aiProjectName string = 'ai-${projectName}-${uniqueSuffix}'
-// output bingGroundingName string = 'bing-grounding-${uniqueSuffix}'
+module appupdate 'appupdate.bicep' = {
+  name: 'appupdate'
+  scope: resourceGroup
+  params: {
+    containerAppName: aca.outputs.name
+    clientId: registration.outputs.clientAppId
+    openIdIssuer: issuer
+    includeTokenStore: false
+  }
+}
+
+module aiServicesRoleBackend 'core/security/role.bicep' = {
+  scope: resourceGroup
+  name: 'aiservices-role-backend'
+  params: {
+    principalId: aca.outputs.identityPrincipalId
+    roleDefinitionId: 'a97b65f3-24c7-4388-baec-2e87135dc908'
+    principalType: 'ServicePrincipal'
+  }
+}
+
+output AZURE_LOCATION string = location
+output AZURE_TENANT_ID string = tenant().tenantId
+
+output AZURE_DEEPSEEK_DEPLOYMENT string = aiServicesDeploymentName
+output AZURE_INFERENCE_ENDPOINT string = 'https://${aiServices.outputs.name}.services.ai.azure.com/models'
+
+output SERVICE_ACA_IDENTITY_PRINCIPAL_ID string = aca.outputs.identityPrincipalId
+output SERVICE_ACA_NAME string = aca.outputs.name
+output SERVICE_ACA_URI string = aca.outputs.uri
+output SERVICE_ACA_IMAGE_NAME string = aca.outputs.imageName
+
+output AZURE_CONTAINER_ENVIRONMENT_NAME string = containerApps.outputs.environmentName
+output AZURE_CONTAINER_REGISTRY_ENDPOINT string = containerApps.outputs.registryLoginServer
+output AZURE_CONTAINER_REGISTRY_NAME string = containerApps.outputs.registryName
