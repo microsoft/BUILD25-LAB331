@@ -53,13 +53,17 @@ Follow these steps to open the workshop in Visual Studio Code:
 
           ```powershell
           git clone https://github.com/microsoft/BUILD25-LAB331.git `
-          ; cd BUILD25-LAB331/src `
-          ; python -m venv .venv `
-          ; .venv\Scripts\activate `
-          ; pip install -r requirements.txt `;
+          ; cd BUILD25-LAB331 `
+          ; python -m venv src/.venv `
+          ; src\.venv\Scripts\activate `
+          ```
+      2. Install the required Python packages:
+
+          ```powershell
+            pip install -r src/requirements.txt `;
           ```
 
-      2. Open in VS Code. From the terminal window, run the following command:
+      3. Open in VS Code. From the terminal window, run the following command:
 
           ```powershell
           code .
