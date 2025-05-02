@@ -68,60 +68,24 @@ Follow these steps to open the workshop in Visual Studio Code:
 
         !!! warning "When the project opens in VS Code, two notifications appear in the bottom right corner. Click ✖ to close both notifications."
 
-## Project Connection String
-
-Next, we log in to Azure AI Foundry to retrieve the project connection string, which the agent app uses to connect to the Azure AI Agents Service.
-
-1. Navigate to the [Azure AI Foundry](https://ai.azure.com){:target="_blank"} website.
-2. Select **Sign in** and use the **Username** and **Password** found in the **top section** of the **Resources** tab in the lab environment. Click on the **Username** and **Password** fields to automatically fill in the login details.
-    ![Azure credentials](../media/azure-credentials.png){:width="500"}
-3. Read the introduction to the Azure AI Foundry and click **Got it**.
-4. Ensure you are on the AI Foundry home page. Click the **AI Foundry** tab in the top left corner.
-
-    ![AI Foundry home page](../media/ai-foundry-home.png){:width="200"}
-
-5. Select the project name that starts with **aip-**.
-
-    ![Select project](../media/ai-foundry-project.png){:width="500"}
-
-6. Review the introduction guide and click **Close**.
-7. Locate the **Project details** section, click the **Copy** icon to copy the **Project connection string**.
-
-    ![Copy connection string](../media/project-connection-string.png){:width="500"}
 
 ## Configure the Workshop
 
-    1. Switch back to the workshop you opened in VS Code.
-    2. **Rename** the `.env.sample` file to `.env`.
+### Create the .env file
+
+    1. **Rename** the `.env.sample` file to `.env`.
 
         - Select the **.env.sample** file in the VS Code **Explorer** panel.
         - Right-click the file and select **Rename**, or press <kbd>F2</kbd>.
         - Change the file name to `.env` and press <kbd>Enter</kbd>.
 
-    3. Paste the **Project connection string** you copied from Azure AI Foundry into the `.env` file.
-
-        ```python
-        PROJECT_CONNECTION_STRING="<your_project_connection_string>"
-        ```
-
-        Your `.env` file should look similar to this but with your project connection string.
-
-        ```python
-        MODEL_DEPLOYMENT_NAME="DeepSeek-R1"
-        PROJECT_CONNECTION_STRING="<your_project_connection_string>"
-        ```
-
-    4. Save the `.env` file.
-
-### 5. Set Up Tavily API
+### Set Up Tavily API
 
     1. Register for a [Tavily API key](https://tavily.com/) to enable web search capabilities. This API is essential for the web research integration in Labs 2 and 3.
 
-    2. Update the `.env` file in the project root with your Tavily API keys. Your file should now look like this:
+    2. Update the `.env` file in the project root with your Tavily API keys. Your file should now have the following line in it:
 
     ```
-    AZURE_AI_ENDPOINT=your_azure_openai_endpoint
-    AZURE_API_KEY=your_azure_openai_key
     TAVILY_API_KEY=your_tavily_api_key
     ```
 
