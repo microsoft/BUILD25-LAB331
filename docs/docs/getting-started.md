@@ -57,7 +57,7 @@ Follow these steps to open the workshop in Visual Studio Code:
           ; python -m venv src/.venv `
           ; src\.venv\Scripts\activate `
           ; pip install -r src/requirements.txt `
-          ; code --install-extension TeamsDevApp.vscode-ai-foundry
+          ;
           ```
 
       2. Open in VS Code. From the terminal window, run the following command:
