@@ -1,4 +1,4 @@
-langchain-azure-ai
+langchain-azure-ai --only-binary :all:
 langchain
 langgraph
 python-dotenv
