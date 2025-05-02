@@ -56,6 +56,7 @@ Follow these steps to open the workshop in Visual Studio Code:
           ; cd BUILD25-LAB331 `
           ; python -m venv src/.venv `
           ; src\.venv\Scripts\activate `
+          ;
           ```
       2. Install the required Python packages:
 
