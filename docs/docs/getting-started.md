@@ -41,7 +41,7 @@ You need to authenticate with Azure so the agent app can access the Azure AI Age
     ; az role assignment create --role "f6c7c914-8db3-469d-8ca1-694a8f32e121" --assignee-object-id $objectId --scope /subscriptions/$subId/resourceGroups/"rg-agent-workshop" --assignee-principal-type 'User'
     ```
 
-5. Leave the terminal window open for the next steps.
+5. Stay in the terminal window for the next steps.
 
 ## Open the Workshop
 
@@ -53,16 +53,16 @@ Follow these steps to open the workshop in Visual Studio Code:
 
           ```powershell
           git clone https://github.com/microsoft/BUILD25-LAB331.git `
-          ; cd src `
-          ; python -m venv src/python/workshop/.venv `
-          ; src\.venv\Scripts\activate `
-          ; pip install -r src/requirements.txt `
+          ; cd BUILD25-LAB331/src `
+          ; python -m venv .venv `
+          ; .venv\Scripts\activate `
+          ; pip install -r requirements.txt `;
           ```
 
       2. Open in VS Code. From the terminal window, run the following command:
 
           ```powershell
-          code .vscode\python-workspace.code-workspace
+          code .
           ```
 
         !!! warning "When the project opens in VS Code, two notifications appear in the bottom right corner. Click ✖ to close both notifications."
