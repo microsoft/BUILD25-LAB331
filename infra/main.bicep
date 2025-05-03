@@ -168,7 +168,6 @@ output AZURE_TENANT_ID string = tenant().tenantId
 
 output AZURE_DEEPSEEK_DEPLOYMENT string = aiServicesDeploymentName
 output AZURE_INFERENCE_ENDPOINT string = 'https://${aiServices.outputs.name}.services.ai.azure.com/models'
-output AZURE_INFERENCE_API_KEY string = aiServices.outputs.apiKey
 
 output SERVICE_ACA_IDENTITY_PRINCIPAL_ID string = aca.outputs.identityPrincipalId
 output SERVICE_ACA_NAME string = aca.outputs.name
