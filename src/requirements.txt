@@ -10,3 +10,4 @@ websockets
 pydantic
 python-multipart
 jinja2
+rich_click
