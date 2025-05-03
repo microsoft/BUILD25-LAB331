@@ -54,4 +54,3 @@ output endpoint string = account.properties.endpoint
 output endpoints object = account.properties.endpoints
 output id string = account.id
 output name string = account.name
-output apiKey string = listKeys(account.id, account.apiVersion).key1
