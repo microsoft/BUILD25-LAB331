@@ -3,6 +3,7 @@ import time
 from dotenv import load_dotenv
 from typing import Tuple
 from langchain_azure_ai.chat_models import AzureAIChatCompletionsModel
+from azure.core.credentials import AzureKeyCredential
 from langchain_core.messages import HumanMessage, SystemMessage
 from rich.console import Console
 from rich.panel import Panel
@@ -16,11 +17,15 @@ load_dotenv()
 # Initialize the console for pretty terminal output
 console = Console()
 
+endpoint = os.getenv("AZURE_INFERENCE_ENDPOINT")
+model_name = os.getenv("AZURE_DEEPSEEK_DEPLOYMENT")
+key = os.getenv("AZURE_AI_API_KEY")
+
 # Set up the AI model
 model = AzureAIChatCompletionsModel(
-    endpoint=os.getenv("AZURE_AI_ENDPOINT"),
-    credential=os.getenv("AZURE_API_KEY"),
-    model_name="DeepSeek-R1",  
+    endpoint=endpoint,
+    credential=AzureKeyCredential(key),
+    model_name=model_name,  
 )
 
 # The system prompt that instructs the model to show its thinking process
