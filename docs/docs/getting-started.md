@@ -57,6 +57,7 @@ Follow these steps to open the workshop in Visual Studio Code:
           ; python -m venv src/.venv `
           ; src\.venv\Scripts\activate `
           ; pip install -r src/requirements.txt `
+          ; cd src `
           ;
           ```
 
