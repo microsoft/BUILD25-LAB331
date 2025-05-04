@@ -51,7 +51,7 @@ resource resourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' = {
 var prefix = '${name}-${resourceToken}'
 
 var aiServicesNameAndSubdomain = '${resourceToken}-aiservices'
-module aiServices 'ai/cognitiveservices.bicep' = {
+module aiServices 'br/public:avm/res/cognitive-services/account:0.7.2' = {
   name: 'deepseek'
   scope: resourceGroup
   params: {
@@ -76,6 +76,7 @@ module aiServices 'ai/cognitiveservices.bicep' = {
         }
       }
     ]
+    disableLocalAuth: disableKeyBasedAuth
     roleAssignments: [
       {
         principalId: principalId
