@@ -6,10 +6,14 @@ from typing import List, Callable
 from click import style
 from pathlib import Path
 from inspect import signature
+from dotenv import load_dotenv
+from azure.identity import AzureDeveloperCliCredential
+from azure.mgmt.cognitiveservices import CognitiveServicesManagementClient
+
+load_dotenv()
 
 # Add these constants near the top
 TEMP_FILE = Path.home() / '.lab_setup_progress'
-
 # Step registration
 steps: List[tuple[Callable, str]] = []
 
@@ -88,6 +92,38 @@ def export_variables():
     with open(env_path, 'w') as env_file:
         subprocess.run(['azd', 'env', 'get-values'], stdout=env_file, check=True)
 
+@step("Add DeepSeek Key")
+def add_variables():
+    # Get the directory where the script is located and resolve .env path
+    env_path = Path(__file__).parent / '.env'
+    
+    sub_id = os.getenv("AZURE_SUBSCRIPTION_ID")
+    name = os.getenv("AI_SERVICES_NAME")
+    resource_group = f"{os.getenv("AZURE_ENV_NAME")}-rg"
+
+    # 1. authenticate with whatever azd/az login cached
+    cred = AzureDeveloperCliCredential()       # works for users + azd pipelines
+
+    # 2. call the management plane
+    mgmt = CognitiveServicesManagementClient(cred, sub_id)
+    keys = mgmt.accounts.list_keys(resource_group, name)  # ⇐ ARM call
+    key = keys.key1 
+    
+    # Read existing content to check if variable is already there
+    content = env_path.read_text() if env_path.exists() else ""
+    
+    # Check if TAVILY_API_KEY is already in the file
+    if "AZURE_AI_API_KEY=" not in content:
+        # Open in append mode and add the variable
+        with open(env_path, 'a') as env_file:
+            # Add a newline if the file isn't empty and doesn't end with newline
+            if content and not content.endswith('\n'):
+                env_file.write('\n')
+            env_file.write(f'AZURE_AI_API_KEY="{key}"\n')
+        print(f"added key to env file")
+    else:
+        print("AZURE_AI_API_KEY already exists in .env file")
+
 @step("Complete env file")
 def add_env_var():
     # Get path to .env file at the project root
@@ -126,15 +162,10 @@ def setup(username, password, azure_env_name, subscription, tenant, force, step)
     Automates Azure environment setup and configuration.
     
     This command will:
-    1. GitHub Authentication
-    2. Fork GitHub Repository
-    3. Azure CLI Authentication
-    4. Azure Developer CLI Authentication
-    5. Azure Developer CLI Environment Setup
-    6. Refresh AZD Environment
-    7. Export Environment Variables
-    8. Run Roles Script
-    9. Execute Postprovision Hook
+    - Azure Developer CLI Authentication
+    - Azure Developer CLI Environment Setup
+    - Refresh AZD Environment
+    - Export Environment Variables
     """
     try:
         # Create parameters dictionary
