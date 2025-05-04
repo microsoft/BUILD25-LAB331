@@ -4,6 +4,7 @@ import time
 import dotenv
 from typing import Dict, List, Any, Tuple
 from langchain_azure_ai.chat_models import AzureAIChatCompletionsModel
+from azure.core.credentials import AzureKeyCredential
 from langchain_core.messages import HumanMessage, SystemMessage
 from tavily import TavilyClient
 from rich.console import Console
@@ -19,10 +20,16 @@ dotenv.load_dotenv()
 # Initialize console and clients
 console = Console()
 tavily_client = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
+
+endpoint = os.getenv("AZURE_INFERENCE_ENDPOINT")
+model_name = os.getenv("AZURE_DEEPSEEK_DEPLOYMENT")
+key = os.getenv("AZURE_AI_API_KEY")
+
+# Set up the AI model
 model = AzureAIChatCompletionsModel(
-    endpoint=os.getenv("AZURE_AI_ENDPOINT"),
-    credential=os.getenv("AZURE_API_KEY"),
-    model_name="DeepSeek-R1", 
+    endpoint=endpoint,
+    credential=AzureKeyCredential(key),
+    model_name=model_name,  
 )
 
 # System prompts for different stages of research
