@@ -18,7 +18,7 @@
         "value": "${SERVICE_ACA_RESOURCE_EXISTS=false}"
       },
       "disableKeyBasedAuth": {
-        "value": "${DISABLE_KEY_BASED_AUTH=true}"
+        "value": "${DISABLE_KEY_BASED_AUTH=false}"
       },
       "serviceManagementReference": {
         "value": "${AZURE_SERVICE_MANAGEMENT_REFERENCE}"
