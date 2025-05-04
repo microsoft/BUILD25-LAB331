@@ -96,6 +96,8 @@ def export_variables():
 def add_variables():
     # Get the directory where the script is located and resolve .env path
     env_path = Path(__file__).parent / '.env'
+
+    load_dotenv(env_path)
     
     sub_id = os.getenv("AZURE_SUBSCRIPTION_ID")
     name = os.getenv("AI_SERVICES_NAME")
@@ -145,7 +147,7 @@ def add_env_var():
             if content and not content.endswith('\n'):
                 env_file.write('\n')
             env_file.write('TAVILY_API_KEY=""\n')
-        print(f"You can find your .env file in the src folder!")
+        print(f"You can find your .env file in the src folder! Add you Tavily API Key here now.")
     else:
         print("TAVILY_API_KEY already exists in .env file")
 
