@@ -1,41 +1,28 @@
 # LAB331: Deep Research with LangChain and DeepSeek R1
 
-Welcome to the Azure Deep Research Workshop! In this hands-on workshop, you'll learn how to build an AI-powered research assistant that can conduct comprehensive web research, analyze and synthesize information, and present findings with illustrative images.
+Welcome to Lab 331! In this hands-on workshop, you'll learn how 'reasoning models' like DeepSeek R1 work. We'll walk through how to build an AI-powered research assistant that can conduct comprehensive web research, analyze and synthesize information, and present findings with illustrative images. The researcher's API will be built using Langchain Azure AI, DeepSeek R1, LangGraph (Langchain's agentic framework) and FastAPI.  
 
 ![Azure Deep Research](media/deep-researcher-image.png)
 
 ## What You'll Build
 
-This workshop will guide you through creating a sophisticated AI research system that leverages Azure OpenAI's powerful reasoning capabilities, web search integration, and a modern responsive UI to deliver comprehensive research results.
+By the end of this workshop, you'll have learnt:
 
-By the end of this workshop, you'll have built a complete research application that can:
-
-- Process research requests with transparent, real-time AI reasoning
-- Conduct multi-stage web research with knowledge gap identification
-- Perform iterative research cycles to build comprehensive knowledge
-- Present findings with a professional UI including relevant images
-- Deploy as a scalable web application with WebSockets for real-time updates
+- What a Reasoning Model is and how to use one
+- How to use Reasoning Models with tools like Tavily web search for optimum search results
+- What LangGraph is and how to implement reflection style archictecture with it
+- How to use LangGraph to perform iterative research cycles to build comprehensive knowledge
+- How to deploy the final application
 
 ## Workshop Structure
 
 The workshop is organized into four labs:
 
-1. **Reasoning & Model Thoughts**: Understand how to harness reasoning models and stream their thinking process in real-time
-2. **Web Research Integration**: Integrate web search capabilities with query generation and information synthesis
-3. **Research Reflection**: Implement knowledge gap identification and iterative research cycles
-4. **Launching Your Researcher**: Transform your terminal application into a modern web interface with FastAPI and WebSockets
-
-## Prerequisites
-
-Before starting this workshop, ensure you have:
-
-- Python 3.10+ installed on your machine
-- An Azure account with access to DeepSeek R1
-- A basic understanding of Python programming
-- Familiarity with VS Code
+1. **Reasoning & Model Thoughts**
+2. **Web Research Integration**
+3. **Research Reflection**
+4. **Launching Your Researcher**
 
 ## Getting Started
 
 To begin the workshop, proceed to the [Getting Started](getting-started.md) section to set up your environment and install the necessary dependencies.
-
-Let's start building your AI-powered research assistant!
