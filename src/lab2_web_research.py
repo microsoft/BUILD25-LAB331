@@ -1,18 +1,16 @@
 import os
-import json
-import time
 import dotenv
-from typing import Dict, List, Any, Tuple
 from langchain_azure_ai.chat_models import AzureAIChatCompletionsModel
 from azure.core.credentials import AzureKeyCredential
 from langchain_core.messages import HumanMessage, SystemMessage
 from tavily import TavilyClient
 from rich.console import Console
-from rich.panel import Panel
-from rich.markdown import Markdown
 from rich.prompt import Prompt
 from rich.progress import Progress, SpinnerColumn, TextColumn
-from rich.live import Live
+
+from stream_llm_response import stream_thinking_and_answer, display_panel
+from prompts import query_writer_instructions, summarizer_instructions, get_current_date
+
 
 # Load environment variables
 dotenv.load_dotenv()
@@ -32,106 +30,20 @@ model = AzureAIChatCompletionsModel(
     model_name=model_name,  
 )
 
-# System prompts for different stages of research
-QUERY_GENERATION_PROMPT = """You are an expert at generating effective search queries.
-
-When given a research topic, generate the optimal search query that will find the most relevant and useful information. The query should be specific enough to find relevant information but not so narrow that it misses important context.
-
-Place your thinking process inside <think>...</think> tags, and then provide just the search query as your final answer.
-
-For example:
-User: Research the impact of climate change on marine ecosystems
-
-You: <think>
-For this research topic on climate change's impact on marine ecosystems, I need to craft a query that will bring up recent and relevant scientific information. I should include:
-- The main topic "climate change" and "marine ecosystems"
-- Some specific effects that would be relevant like "ocean acidification", "coral bleaching", "sea level rise"
-- Terms that would find scientific or research-based sources
-- I should avoid terms that are too general or would bring up basic information
-</think>
-
-climate change impacts marine ecosystems ocean acidification coral bleaching scientific research recent findings
-"""
-
-SUMMARIZATION_PROMPT = """You are a research assistant that creates comprehensive summaries from web search results.
-
-Given the search results provided, create a detailed and informative summary that:
-1. Synthesizes the key information from all sources
-2. Organizes information logically
-3. Highlights important facts, statistics, and findings
-4. Maintains accuracy and avoids adding unfounded information
-5. Cites sources appropriately
-
-Place your thinking process inside <think>...</think> tags, and then provide your final summary.
-"""
-
-def stream_thinking_and_answer(stream_generator, title="🧠 AI Thinking Process (Live)"):
-    """
-    Stream the AI's thinking and answer in real-time, separating them visually.
-    """
-    # Containers for accumulating thoughts and answer
-    accumulated_thoughts = ""
-    accumulated_answer = ""
-    in_thinking_section = False
-    
-    thinking_panel = Panel(
-        Markdown(""),
-        title=title,
-        title_align="left",
-        border_style="cyan",
-        padding=(1, 2),
-        expand=False
-    )
-    
-    with Live(thinking_panel, refresh_per_second=4) as live:
-        for chunk in stream_generator:
-            content = chunk.content if hasattr(chunk, 'content') else chunk
-            if not content:
-                continue
-            
-            # Check for thinking tags
-            if "<think>" in content:
-                in_thinking_section = True
-                content = content.replace("<think>", "")
-            if "</think>" in content:
-                in_thinking_section = False
-                content = content.replace("</think>", "")
-                accumulated_thoughts += content
-                
-                # Update the live display with the latest thoughts
-                thinking_panel.renderable = Markdown(accumulated_thoughts)
-                live.update(thinking_panel)
-                continue
-            
-            # Add content to the appropriate section
-            if in_thinking_section:
-                accumulated_thoughts += content
-                
-                # Update the live display with the latest thoughts
-                thinking_panel.renderable = Markdown(accumulated_thoughts)
-                live.update(thinking_panel)
-            else:
-                accumulated_answer += content
-    
-    return accumulated_thoughts, accumulated_answer
-
-def display_panel(content, title, style="green"):
-    """Display content in a styled panel."""
-    console.print(Panel(
-        Markdown(content),
-        title=title,
-        title_align="left",
-        border_style=style,
-        padding=(1, 2),
-        expand=False
-    ))
-
 def generate_search_query(research_topic):
     """Generate an effective search query for the research topic."""
     console.print("[bold blue]Generating optimal search query...[/]")
+
+    # Format the prompt
+    current_date = get_current_date()
+
+    formatted_prompt = query_writer_instructions.format(
+        current_date=current_date,
+        research_topic=research_topic
+    )
     
     messages = [
-        SystemMessage(content=QUERY_GENERATION_PROMPT),
+        SystemMessage(content=formatted_prompt),
         HumanMessage(content=f"Research topic: {research_topic}")
     ]
     
@@ -140,7 +52,7 @@ def generate_search_query(research_topic):
     response_stream = model.stream(messages)
     thoughts, query = stream_thinking_and_answer(response_stream, "🔍 Query Generation Thinking")
     
-    display_panel(f"**Search Query**: {query}", "🔍 Generated Search Query", "green")
+    display_panel(console, f"**Search Query**: {query}", "🔍 Generated Search Query", "green")
     
     return query
 
@@ -154,12 +66,13 @@ def perform_web_search(query):
         transient=True,
     ) as progress:
         progress.add_task("Searching the web...", total=None)
-        search_results = tavily_client.search(query=query, search_depth="advanced", max_results=5)
+        search_results = tavily_client.search(query=query, max_results=3)
     
     # Display search result snippets
     console.print("\n[bold]Search Results:[/]")
     for i, result in enumerate(search_results["results"], 1):
         display_panel(
+            console,
             f"**Title**: {result['title']}\n\n**Snippet**: {result['content']}\n\n**URL**: {result['url']}",
             f"Result {i}",
             "blue"
@@ -179,7 +92,7 @@ def summarize_search_results(research_topic, search_results):
         formatted_results += f"Content: {result['content']}\n\n"
     
     messages = [
-        SystemMessage(content=SUMMARIZATION_PROMPT),
+        SystemMessage(content=summarizer_instructions),
         HumanMessage(content=f"Research Topic: {research_topic}\n\nSearch Results:\n{formatted_results}")
     ]
     
@@ -188,7 +101,7 @@ def summarize_search_results(research_topic, search_results):
     response_stream = model.stream(messages)
     thoughts, summary = stream_thinking_and_answer(response_stream, "📝 Summarization Thinking")
     
-    display_panel(summary, "📝 Research Summary", "green")
+    display_panel(console, summary, "📝 Research Summary", "green")
     
     return summary
 
@@ -203,15 +116,6 @@ def conduct_research(research_topic):
     
     # Summarize search results
     summary = summarize_search_results(research_topic, search_results)
-    
-    # # Compile final research report from all summaries
-    # console.print("\n[bold]===== Final Research Report =====[/]\n")
-    
-    # final_report = f"# Research Report: {research_topic}\n\n"
-    # for i, summary in enumerate(all_summaries, 1):
-    #     final_report += f"## Research Cycle {i}\n\n{summary}\n\n"
-    
-    # display_panel(final_report, "📊 Complete Research Report", "purple")
     
     return summary
 
