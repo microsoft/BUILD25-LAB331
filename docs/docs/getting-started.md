@@ -10,9 +10,9 @@ This workshop is designed to teach you how to use Reasoning Models, like DeepSee
 
 ## Authenticate with Azure
 
-You need to authenticate with Azure so the agent app can access the Azure AI Agents Service and models. Follow these steps:
+You need to authenticate with Azure to access DeepSeek R1. Follow these steps:
 
-1. Open a terminal window. The terminal app is **pinned** to the Windows 11 taskbar.
+1. Open a terminal window. The terminal app is **pinned** to the Windows taskbar.
 
     ![Open the terminal window](../media/windows-taskbar.png){ width="300" }
 
@@ -33,15 +33,7 @@ You need to authenticate with Azure so the agent app can access the Azure AI Age
 
 3. Then select the **Default** subscription from the command line.
 
-4. Once you've logged in, run the following command to assign the **user** role to the resource group:
-
-    ```powershell
-    $subId = $(az account show --query id --output tsv) `
-    ;$objectId = $(az ad signed-in-user show --query id -o tsv) `
-    ; az role assignment create --role "f6c7c914-8db3-469d-8ca1-694a8f32e121" --assignee-object-id $objectId --scope /subscriptions/$subId/resourceGroups/"rg-agent-workshop" --assignee-principal-type 'User'
-    ```
-
-5. Stay in the terminal window for the next steps.
+4. Stay in the terminal window for the next step.
 
 ## Open the Workshop
 
@@ -74,46 +66,31 @@ Follow these steps to open the workshop in Visual Studio Code:
 
 ### Create the .env file
 
-    1. **Rename** the `.env.sample` file to `.env`.
+1. Open a new terminal in VSCode. 
 
-        - Select the **.env.sample** file in the VS Code **Explorer** panel.
-        - Right-click the file and select **Rename**, or press <kbd>F2</kbd>.
-        - Change the file name to `.env` and press <kbd>Enter</kbd>.
+2. To create a `.env` file with the variables needed for this workshop click on the `instructions` tab in your Skillable lab manual. Click on the command under Lab Guide and patse it in the terminal. Press enter to run the command and follow the instructions.
+3. Check that your .env file has succesfully been created and contains some variables. If not ask a proctor for help.
 
-### Set Up Tavily API
+You can now begin with Lab 1! 
 
-    1. Register for a [Tavily API key](https://tavily.com/) to enable web search capabilities. This API is essential for the web research integration in Labs 2 and 3.
-
-    2. Update the `.env` file in the project root with your Tavily API keys. Your file should now have the following line in it:
-
-    ```
-    TAVILY_API_KEY=your_tavily_api_key
-    ```
 
 ## Workshop Materials
 
 This workshop is designed as a progressive series of labs, each building on the previous one:
 
-1. **Lab 1 (Reasoning & Model Thoughts)**: Learn how to stream the AI's thinking process in real-time and format final answers as bullet points.
+1. **Lab 1 (Reasoning & Model Thoughts)**: Learn how to stream the LLM's thinking process in real-time and format final answers as bullet points.
 
 2. **Lab 2 (Web Research Integration)**: Build a basic research system that generates queries, searches the web, and synthesizes the results.
 
 3. **Lab 3 (Research Reflection)**: Extend the research capabilities with knowledge gap identification and iterative research cycles.
 
-4. **Lab 4 (Launching Your Researcher)**: Deploy the research assistant as a web application with FastAPI and WebSockets for real-time updates.
+4. **Lab 4 (Launching Your Researcher)**: Deploy the research assistant as a web application with FastAPI.
 
 Each lab includes code samples, explanations, and challenges to extend your learning.
 
 ## Navigation
 
-Use the navigation menu on the left to move between labs. Each lab includes:
-
-- An overview of what you'll learn
-- Prerequisites specific to that lab
-- Detailed instructions with code samples
-- Explanations of key components
-- Challenges to extend your learning
-- Next steps to progress through the workshop
+Use the navigation menu on the left to move between labs.
 
 ## Pro Tips
 
