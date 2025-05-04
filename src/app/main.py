@@ -15,6 +15,7 @@ tracemalloc.start()
 
 # Import deep research functionality
 from langchain_azure_ai.chat_models import AzureAIChatCompletionsModel
+from azure.core.credentials import AzureKeyCredential
 from langchain_core.messages import HumanMessage, SystemMessage
 from langgraph.graph import StateGraph, START, END
 
@@ -41,19 +42,18 @@ templates = Jinja2Templates(directory="app/templates")
 active_connections = {}
 images = []
 
-credential = AzureDeveloperCliCredential(tenant_id=os.getenv("AZURE_TENANT_ID"))
-
-# Get the token provider for Azure OpenAI based on the selected Azure credential
-openai_token_provider = get_bearer_token_provider(
-    credential, "https://cognitiveservices.azure.com/.default"
-)
-
 # Initialize Azure AI models
+endpoint = os.getenv("AZURE_INFERENCE_ENDPOINT")
+model_name = os.getenv("AZURE_DEEPSEEK_DEPLOYMENT")
+key = os.getenv("AZURE_AI_API_KEY")
+
+# Set up the AI model
 deep_seek_model = AzureAIChatCompletionsModel(
-    endpoint=os.getenv("AZURE_INFERENCE_ENDPOINT"),
-    credential=openai_token_provider,
-    model_name=os.getenv("AZURE_DEEPSEEK_DEPLOYMENT"),
+    endpoint=endpoint,
+    credential=AzureKeyCredential(key),
+    model_name=model_name,  
 )
+
 
 
 # Helper function to strip thinking tokens
