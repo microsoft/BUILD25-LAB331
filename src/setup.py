@@ -147,7 +147,7 @@ def add_env_var():
             if content and not content.endswith('\n'):
                 env_file.write('\n')
             env_file.write('TAVILY_API_KEY=""\n')
-        print(f"You can find your .env file in the src folder! Add you Tavily API Key here now.")
+        print(f"You can find your .env file in the src folder!")
     else:
         print("TAVILY_API_KEY already exists in .env file")
 
