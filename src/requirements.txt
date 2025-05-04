@@ -1,5 +1,4 @@
 langchain-azure-ai --only-binary :all:
-langchain
 langgraph
 python-dotenv
 markdownify
@@ -11,3 +10,4 @@ pydantic
 python-multipart
 jinja2
 rich_click
+azure-mgmt-cognitiveservices
