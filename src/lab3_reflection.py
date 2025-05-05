@@ -1,6 +1,5 @@
 import os
 import json
-import time
 import dotenv
 from typing import Dict, List, Any, Tuple
 from langchain_azure_ai.chat_models import AzureAIChatCompletionsModel
@@ -8,11 +7,14 @@ from azure.core.credentials import AzureKeyCredential
 from langchain_core.messages import HumanMessage, SystemMessage
 from tavily import TavilyClient
 from rich.console import Console
-from rich.panel import Panel
-from rich.markdown import Markdown
 from rich.prompt import Prompt
 from rich.progress import Progress, SpinnerColumn, TextColumn
-from rich.live import Live
+from langgraph.graph import StateGraph, START, END
+
+from stream_llm_response import stream_thinking_and_answer, display_panel, strip_thinking_tokens
+from prompts import query_writer_instructions, summarizer_instructions, get_current_date, reflection_instructions
+from states import SummaryState, SummaryStateInput, SummaryStateOutput
+from formatting import deduplicate_and_format_sources, format_sources
 
 # Load environment variables
 dotenv.load_dotenv()
@@ -31,133 +33,35 @@ model = AzureAIChatCompletionsModel(
     credential=AzureKeyCredential(key),
     model_name=model_name,  
 )
+  
 
-# System prompts for different stages of research
-QUERY_GENERATION_PROMPT = """You are an expert at generating effective search queries.
-
-When given a research topic, generate the optimal search query that will find the most relevant and useful information. The query should be specific enough to find relevant information but not so narrow that it misses important context.
-
-Place your thinking process inside <think>...</think> tags, and then provide just the search query as your final answer.
-
-For example:
-User: Research the impact of climate change on marine ecosystems
-
-You: <think>
-For this research topic on climate change's impact on marine ecosystems, I need to craft a query that will bring up recent and relevant scientific information. I should include:
-- The main topic "climate change" and "marine ecosystems"
-- Some specific effects that would be relevant like "ocean acidification", "coral bleaching", "sea level rise"
-- Terms that would find scientific or research-based sources
-- I should avoid terms that are too general or would bring up basic information
-</think>
-
-climate change impacts marine ecosystems ocean acidification coral bleaching scientific research recent findings
-"""
-
-SUMMARIZATION_PROMPT = """You are a research assistant that creates comprehensive summaries from web search results.
-
-Given the search results provided, create a detailed and informative summary that:
-1. Synthesizes the key information from all sources
-2. Organizes information logically
-3. Highlights important facts, statistics, and findings
-4. Maintains accuracy and avoids adding unfounded information
-5. Cites sources appropriately
-
-Place your thinking process inside <think>...</think> tags, and then provide your final summary.
-"""
-
-REFLECTION_PROMPT = """You are a research assistant tasked with improving research through critical reflection.
-
-Analyze the current research summary and identify knowledge gaps or areas that need further exploration. Then, generate a specific follow-up search query to fill the most important knowledge gap.
-
-Place your thinking process inside <think>...</think> tags.
-
-Your final answer should be in this JSON format:
-{
-  "knowledge_gap": "Description of the most important knowledge gap",
-  "follow_up_query": "The optimal search query to fill this gap"
-}
-"""
-
-def stream_thinking_and_answer(stream_generator, title="🧠 AI Thinking Process (Live)"):
-    """
-    Stream the AI's thinking and answer in real-time, separating them visually.
-    """
-    # Containers for accumulating thoughts and answer
-    accumulated_thoughts = ""
-    accumulated_answer = ""
-    in_thinking_section = False
-    
-    thinking_panel = Panel(
-        Markdown(""),
-        title=title,
-        title_align="left",
-        border_style="cyan",
-        padding=(1, 2),
-        expand=False
-    )
-    
-    with Live(thinking_panel, refresh_per_second=4) as live:
-        for chunk in stream_generator:
-            content = chunk.content if hasattr(chunk, 'content') else chunk
-            if not content:
-                continue
-            
-            # Check for thinking tags
-            if "<think>" in content:
-                in_thinking_section = True
-                content = content.replace("<think>", "")
-            if "</think>" in content:
-                in_thinking_section = False
-                content = content.replace("</think>", "")
-                accumulated_thoughts += content
-                
-                # Update the live display with the latest thoughts
-                thinking_panel.renderable = Markdown(accumulated_thoughts)
-                live.update(thinking_panel)
-                continue
-            
-            # Add content to the appropriate section
-            if in_thinking_section:
-                accumulated_thoughts += content
-                
-                # Update the live display with the latest thoughts
-                thinking_panel.renderable = Markdown(accumulated_thoughts)
-                live.update(thinking_panel)
-            else:
-                accumulated_answer += content
-    
-    return accumulated_thoughts, accumulated_answer
-
-def display_panel(content, title, style="green"):
-    """Display content in a styled panel."""
-    console.print(Panel(
-        Markdown(content),
-        title=title,
-        title_align="left",
-        border_style=style,
-        padding=(1, 2),
-        expand=False
-    ))
-
-def generate_search_query(research_topic):
+def generate_search_query(state: SummaryState):
     """Generate an effective search query for the research topic."""
     console.print("[bold blue]Generating optimal search query...[/]")
+
+    # Format the prompt
+    current_date = get_current_date()
+
+    formatted_prompt = query_writer_instructions.format(
+        current_date=current_date,
+        research_topic=state.research_topic
+    )
     
     messages = [
-        SystemMessage(content=QUERY_GENERATION_PROMPT),
-        HumanMessage(content=f"Research topic: {research_topic}")
+        SystemMessage(content=formatted_prompt),
+        HumanMessage(content=f"Generate a query for web search. The research topic is: {state.research_topic}")
     ]
     
     # Stream the model's thinking process
     console.print("\n[bold]Query Generation Process:[/]\n")
-    response_stream = model.stream(messages)
-    thoughts, query = stream_thinking_and_answer(response_stream, "🔍 Query Generation Thinking")
+    response_stream = model.invoke(messages)
+    thoughts, query = strip_thinking_tokens(response_stream)
     
-    display_panel(f"**Search Query**: {query}", "🔍 Generated Search Query", "green")
+    display_panel(f"**Search Query**: {query}", "🔍 Generated Search Query and updated state.search_query", "green")
     
-    return query
+    return {"search_query": query}
 
-def perform_web_search(query):
+def perform_web_search(state: SummaryState):
     """Perform a web search using the Tavily API."""
     console.print("\n[bold blue]Performing web search...[/]")
     
@@ -167,7 +71,7 @@ def perform_web_search(query):
         transient=True,
     ) as progress:
         progress.add_task("Searching the web...", total=None)
-        search_results = tavily_client.search(query=query, search_depth="advanced", max_results=5)
+        search_results = tavily_client.search(query=state.search_query, max_results=3)
     
     # Display search result snippets
     console.print("\n[bold]Search Results:[/]")
@@ -177,41 +81,62 @@ def perform_web_search(query):
             f"Result {i}",
             "blue"
         )
+    display_panel(
+            f"updated state.web_research_results and state.research_loop_count",
+            "green"
+        )
     
-    return search_results
+    search_str = deduplicate_and_format_sources(search_results, max_tokens_per_source=1000)
+    
+    return {"sources_gathered": [format_sources(search_results)], "research_loop_count": state.research_loop_count + 1, "web_research_results": [search_str]}
 
-def summarize_search_results(research_topic, search_results):
+
+     
+
+def summarize_search_results(state: SummaryState):
     """Summarize the information from search results."""
     console.print("\n[bold blue]Synthesizing information from search results...[/]")
+
+    # Existing summary
+    existing_summary = state.running_summary
+
+    # Most recent web research
+    most_recent_web_research = state.web_research_results[-1]
     
-    # Format search results for the model
-    formatted_results = ""
-    for i, result in enumerate(search_results["results"], 1):
-        formatted_results += f"Source {i}: {result['title']}\n"
-        formatted_results += f"URL: {result['url']}\n"
-        formatted_results += f"Content: {result['content']}\n\n"
+    # Build the human message
+    if existing_summary:
+        human_message_content = (
+            f"<Existing Summary> \n {existing_summary} \n </Existing Summary>\n\n"
+            f"<New Context> \n {most_recent_web_research} \n </New Context>"
+            f"Update the Existing Summary with the New Context on this topic: \n <User Input> \n {state.research_topic} \n </User Input>\n\n"
+        )
+    else:
+        human_message_content = (
+            f"<Context> \n {most_recent_web_research} \n </Context>"
+            f"Create a Summary using the Context on this topic: \n <User Input> \n {state.research_topic} \n </User Input>\n\n"
+        )
     
     messages = [
-        SystemMessage(content=SUMMARIZATION_PROMPT),
-        HumanMessage(content=f"Research Topic: {research_topic}\n\nSearch Results:\n{formatted_results}")
+        SystemMessage(content=summarizer_instructions),
+        HumanMessage(content=human_message_content)
     ]
     
     # Stream the model's thinking process for summarization
     console.print("\n[bold]Summarization Process:[/]\n")
-    response_stream = model.stream(messages)
-    thoughts, summary = stream_thinking_and_answer(response_stream, "📝 Summarization Thinking")
+    response_stream = model.invoke(messages)
+    thoughts, summary = strip_thinking_tokens(response_stream)
     
-    display_panel(summary, "📝 Research Summary", "green")
+    display_panel(summary, "📝 Research Summary created and updated state.running_summary", "green")
     
-    return summary
+    return {"running_summary": summary}
 
-def identify_knowledge_gaps(research_topic, current_summary):
+def identify_knowledge_gaps(state: SummaryState):
     """Identify knowledge gaps and generate a follow-up query."""
     console.print("\n[bold blue]Identifying knowledge gaps...[/]")
     
     messages = [
-        SystemMessage(content=REFLECTION_PROMPT),
-        HumanMessage(content=f"Research Topic: {research_topic}\n\nCurrent Summary:\n{current_summary}")
+        SystemMessage(content=reflection_instructions.format(research_topic=state.research_topic)),
+        HumanMessage(content=f"Reflect on our existing knowledge: \n === \n {state.running_summary}, \n === \n And now identify a knowledge gap and generate a follow-up web search query:")
     ]
     
     # Stream the model's thinking process for knowledge gap identification
@@ -223,53 +148,61 @@ def identify_knowledge_gaps(research_topic, current_summary):
     try:
         reflection = json.loads(json_str)
         knowledge_gap = reflection.get("knowledge_gap", "No specific knowledge gap identified.")
-        follow_up_query = reflection.get("follow_up_query", f"More information about {research_topic}")
+        follow_up_query = reflection.get("follow_up_query", f"More information about {state.research_topic}")
     except json.JSONDecodeError:
         # Fallback if JSON parsing fails
         knowledge_gap = "Unable to parse the identified knowledge gap."
-        follow_up_query = f"More information about {research_topic}"
+        follow_up_query = f"More information about {state.research_topic}"
     
     display_panel(
         f"**Knowledge Gap**: {knowledge_gap}\n\n**Follow-up Query**: {follow_up_query}",
-        "🔍 Knowledge Gap Analysis",
+        "🔍 Knowledge Gap Analysis done and updated state.search_query and state.knowledge_gap",
         "yellow"
     )
     
-    return knowledge_gap, follow_up_query
+    return {"search_query": follow_up_query, "knowledge_gap": knowledge_gap}
 
-def conduct_research(research_topic, max_iterations=2):
-    """Conduct multi-step research on a topic."""
-    console.print(f"[bold]Starting research on: [green]{research_topic}[/green][/]\n")
-    
-    all_summaries = []
-    
-    for iteration in range(1, max_iterations + 1):
-        console.print(f"\n[bold]===== Research Iteration {iteration} =====[/]\n")
-        
-        # Generate search query (use the research topic for first iteration)
-        if iteration == 1:
-            query = generate_search_query(research_topic)
-        else:
-            # For subsequent iterations, use the follow-up query from reflection
-            _, query = identify_knowledge_gaps(research_topic, all_summaries[-1])
-        
-        # Perform web search
-        search_results = perform_web_search(query)
-        
-        # Summarize search results
-        summary = summarize_search_results(research_topic, search_results)
-        all_summaries.append(summary)
-    
-    # Compile final research report from all summaries
+# Step 5: Finalize the summary
+def finalize_summary(state: SummaryState):
     console.print("\n[bold]===== Final Research Report =====[/]\n")
+
+    # Format the final summary
+    final_summary = f"## Summary\n{state.running_summary}\n\n### Sources:\n"
+    for source in state.sources_gathered:
+        final_summary += f"{source}\n"
+
     
-    final_report = f"# Research Report: {research_topic}\n\n"
-    for i, summary in enumerate(all_summaries, 1):
-        final_report += f"## Research Cycle {i}\n\n{summary}\n\n"
+    display_panel(final_summary, "📊 Complete Research Report and updated state.running_summary", "purple")
+    return {"running_summary": final_summary}
+
+# Conditional function that decides whether to continue research or finalize summary
+def route_research(state: SummaryState):
+    if state.research_loop_count <= 1:
+        display_panel("web_research", "📊 Doing more research", "orange")
+        return "web_research"
+    else:
+        display_panel("finalize_summary", "📊 Finalizing the summary", "orange")
+        return "finalize_summary" 
+
+# Set up the graph
+def setup_graph():
+    # Add nodes and edges
+    builder = StateGraph(SummaryState, input=SummaryStateInput, output=SummaryStateOutput)
+    builder.add_node("generate_query", generate_search_query)
+    builder.add_node("web_research", perform_web_search)
+    builder.add_node("summarize_sources", summarize_search_results)
+    builder.add_node("reflect_on_summary", identify_knowledge_gaps)
+    builder.add_node("finalize_summary", finalize_summary)
     
-    display_panel(final_report, "📊 Complete Research Report", "purple")
+    # Add edges
+    builder.add_edge(START, "generate_query")
+    builder.add_edge("generate_query", "web_research")
+    builder.add_edge("web_research", "summarize_sources")
+    builder.add_edge("summarize_sources", "reflect_on_summary")
+    builder.add_conditional_edges("reflect_on_summary", route_research)
+    builder.add_edge("finalize_summary", END)
     
-    return final_report
+    return builder.compile()  
 
 def main():
     """Main function to run the web research demo."""
@@ -287,7 +220,17 @@ def main():
             break
         
         # Conduct research with two iterations
-        conduct_research(research_topic, max_iterations=2)
+        # Set up the graph
+        graph = setup_graph()
+
+        def stream_graph_updates():
+            for event in graph.stream({"research_topic": research_topic}):
+                # Extract the node name and state from the event
+                node_name = next(iter(event.keys()), None)
+
+                print(node_name)
+
+        stream_graph_updates()
         
         console.print("\n" + "-" * 80 + "\n")
 
