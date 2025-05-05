@@ -1,11 +1,11 @@
 site_name: Azure Deep Research Workshop
-site_url: https://example.com/
+site_url: http://aka.ms/build/lab331
 site_author: Microsoft
 site_description: >-
   Learn how to build an AI-powered research assistant using Azure OpenAI, LangGraph, and FastAPI.
 
 repo_name: azure-deep-research-workshop
-repo_url: https://github.com/yourusername/azure-deep-research
+repo_url: https://github.com/microsoft/BUILD25-LAB331
 edit_uri: edit/main/docs/docs/
 
 theme:
@@ -62,7 +62,7 @@ nav:
   - Home: index.md
   - Getting Started: getting-started.md
   - Labs:
-    - "Lab 1: Reasoning & Model Thoughts": lab-1-reasoning-thoughts.md
+    - "Lab 1: Introduction to Reasoning Models": lab-1-introduction-to-reasoning-models.md
     - "Lab 2: Web Research Integration": lab-2-web-research.md
     - "Lab 3: Research Reflection": lab-3-reflection.md
     - "Lab 4: Launching Your Researcher": lab-4-launch-researcher.md

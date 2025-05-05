@@ -20,8 +20,8 @@ pip install mkdocs mkdocs-material pymdown-extensions mkdocs-glightbox
 2. Clone this repository (if you haven't already):
 
 ```bash
-git clone https://github.com/yourusername/azure-deep-research.git
-cd azure-deep-research/docs
+git clone https://github.com/microsoft/BUILD25-LAB331.git
+cd BUILD25-LAB331/docs
 ```
 
 ## Previewing the Documentation Locally
@@ -85,7 +85,7 @@ docs/
 ├── docs/                 # Documentation source files
 │   ├── index.md          # Home page
 │   ├── getting-started.md
-│   ├── lab-1-reasoning-thoughts.md
+│   ├── lab-1-introduction-to-reasoning-models.md
 │   ├── lab-2-web-research.md
 │   ├── lab-3-reflection.md
 │   └── lab-4-launch-researcher.md
