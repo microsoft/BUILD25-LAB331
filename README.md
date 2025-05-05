@@ -59,6 +59,6 @@ contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additio
 
 | Resources          | Links                             | Description        |
 |:-------------------|:----------------------------------|:-------------------|
-| Session Home Page | [Title-of-your-session](https://build.microsoft.com/en-US/sessions/) | Session Homepage on Build|
-| Learn Plan  | [Link](https://aka.ms/your-link-here] | Learn plan to follow and learn at your own pace|
+| Build session page | https://build.microsoft.com/sessions/LAB331 | Event session page with downloadable recording, slides, resources, and speaker bio |
+|Microsoft Learn|aka.ms/build25/plans/friendlyname<br>aka.ms/build25/collection/friendlyname|Official Collection or Plan with skilling resources to learn at your own pace|
 
