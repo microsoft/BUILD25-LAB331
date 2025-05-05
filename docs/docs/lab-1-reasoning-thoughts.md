@@ -1,180 +1,81 @@
 # Lab 1: Reasoning & Model Thoughts
 
-In this lab, you'll learn about reasoning models and how to separate and visualize the AI's thinking process from its final output. This approach gives you insight into the model's reasoning and helps create more transparent AI systems.
+In this lab, you'll learn about reasoning models and how to separate the LLM's thinking process from its final output. 
 
-## Understanding AI Reasoning
+## What is a Reasoning Model? 
 
-Modern large language models like DeepSeek-R1 have powerful reasoning capabilities, but they often hide their step-by-step thinking. By explicitly encouraging and capturing this thinking process, we can:
+Reasoning models, like DeepSeek-R1, are LLMs trained with reinforcement learning to perform reasoning. Reasoning models think before they answer, producing a long internal chain of thought before responding to the user [[source](https://platform.openai.com/docs/guides/reasoning?utm_source=chatgpt.com&api-mode=responses)]. They often outperform vanilla chat models on tasks like multi‑step math, code debugging, planning, tool use, and long‑context question‑answering. 
 
-1. Improve the quality of final outputs
-2. Debug reasoning errors
-3. Build trust through transparency
-4. Create educational tools showing "how" the AI thinks
+When combined with a tool to access the web, Reasoning models are particularly good at research. Their chain‑of‑thought training and reward signals make them better at spotting gaps, cross‑checking sources, and iterating on hypotheses. Some popular reasoing models are DeepSeek R1, OpenAI's o3 and o1, and Microsoft's Ph-4-reasoning.
 
 ## Lab Overview
 
 In this lab, you'll:
 
-1. Learn about reasoning techniques in LLMs
-2. Create a simple terminal application that shows thinking vs output
-3. Use special prompting techniques to encourage step-by-step reasoning
-4. Format the thinking and output visually for better user experience
-5. **See real-time streaming** of the model's thoughts as they develop
+1. Learn how to use a reasoning model by looking at the raw output.
+2. Learn how to seperate the models thinking vs final output. 
+3. Update the models system prompt to get formatted output.
 
-## The Code
+## Getting started with DeepSeek R1
 
-The Python application in `lab1_reasoning.py` demonstrates reasoning with visible thoughts:
+To access DeepSeek R1 we will be using [langchain-azure-ai](https://pypi.org/project/langchain-azure-ai/), the official Python package that contains most Langchains Azure integrations. This package leverages [Azure AI's Inference SDK](https://learn.microsoft.com/en-us/python/api/overview/azure/ai-inference-readme?view=azure-python-preview) to give us access to all the models available in [Azure AI Foundry](https://ai.azure.com/) using Langchain. 
 
-```python
-import os
-import time
-from dotenv import load_dotenv
-from typing import Tuple
-from langchain_azure_ai.chat_models import AzureAIChatCompletionsModel
-from langchain_core.messages import HumanMessage, SystemMessage
-from rich.console import Console
-from rich.panel import Panel
-from rich.markdown import Markdown
-from rich.prompt import Prompt
-from rich.live import Live
+To get started in the VS Code terminal and run the following command and enter a research topic, for example 'What's the best coffee in Seattle?':
 
-# ... abbreviated for clarity ...
+```powershell
+python lab1a_reasoning.py
 ```
 
-The code creates a terminal-based application that:
+Look at the output in the terminal. What do you notice about the answer this model returns vs what a chat model would typically output? 
+Open the file [lab1a_reasoning.py](../../src/lab1a_reasoning.py) and examine the code. Note that we do not pass a system prompt and the instructions for the model to think are built in. 
 
-1. Connects to Azure OpenAI using your credentials
-2. Takes research questions as input
-3. Uses a special system prompt to encourage the model to "think aloud"
-4. **Streams the thinking process in real-time** as the model generates it
-5. Formats the final answer as bullet points for clarity
-6. Presents the results in styled panels
+Type in 'exit' to leave the program and continue with the next step. 
 
-## Key Components
+## Seperating Thinking from the Final Answer
 
-### System Prompt
+The output from the model in the previous step contains the models thinking. This output might be helpful for developers and the curious but might not always be helpful when building an application where users only expect the final output. 
 
-The system prompt instructs the model to show its reasoning:
+Many reasoning models like DeepSeek R1 put the models thought process in thinking tags that look like this `<think> </think>`. In order to seperate the models thinking from it's final answer we can create helper function in Python to seperate the thinking from the final output. This is what the code to this would look like:
 
 ```python
-SYSTEM_PROMPT = """You are a research assistant that thinks carefully about questions before answering.
-
-When you receive a research question, first think about the problem step-by-step.
-Place all your reasoning and thinking inside <think>...</think> tags.
-
-After thinking, provide your final answer without the thinking tags in bullet points.
-Make sure to include all the important details in your answer.
-"""
-```
-
-This prompt:
-- Establishes the model's role as a research assistant
-- Provides explicit instructions for structuring output
-- Uses XML-like tags (`<think>...</think>`) to demarcate thinking
-- Requires bullet points in the final answer for better readability
-
-### Real-Time Streaming
-
-The application streams the model's thinking in real-time using the `stream_thinking_and_answer` function:
-
-```python
-def stream_thinking_and_answer(stream_generator, title="🧠 AI Thinking Process (Live)"):
+def seperate_thinking_from_final_output(text: str):
     """
-    Stream the AI's thinking and answer in real-time, separating them visually.
+    Extract the content between <think> and </think> tags and remove them from the text.
     """
-    # Containers for accumulating thoughts and answer
-    accumulated_thoughts = ""
-    accumulated_answer = ""
-    in_thinking_section = False
-    
-    thinking_panel = Panel(
-        Markdown(""),
-        title=title,
-        title_align="left",
-        border_style="cyan",
-        padding=(1, 2),
-        expand=False
-    )
-    
-    with Live(thinking_panel, refresh_per_second=4) as live:
-        for chunk in stream_generator:
-            # ... process each token as it arrives ...
+    thoughts = ""
+    while "<think>" in text and "</think>" in text:
+        start = text.find("<think>")
+        end = text.find("</think>")
+        # Extract the content between tags (excluding the tags themselves)
+        thoughts += text[start + len("<think>"):end].strip() + "\n\n"
+        # Remove the tags and their content from the original text
+        text = text[:start] + text[end + len("</think>"):]
+    return thoughts.strip(), text.strip()
 ```
 
-This function:
-- Creates a live updating panel using Rich's `Live` context manager 
-- Processes each token as it comes from the model
-- Distinguishes between thinking sections and the final answer
-- Updates the display in real-time with each new token
+Look at the code in the [stream_llm_response.py](../../src/stream_llm_response.py) file. It contains a slightly updated version of this helper function in the `stream_thinking_and_answer` function. This helper function will be imported in all our python files going forward. It also contains some code that uses the Python package [rich](https://pypi.org/project/rich/) for prettier display in the terminal. 
 
-## Running the Application
+To test this code out run the following command in the terminal. 
 
-To run the application:
-
-1. Ensure you have the required packages installed:
-
-```bash
-pip install python-dotenv langchain-azure-ai rich
+```powershell
+python lab1b_reasoning.py
 ```
 
-2. Create a `.env` file with your Azure OpenAI credentials:
+!!! note
+    The final output is returned as bullet points. This format can be specified in the models system prompt. Try updating the system prompt in [lab1b_reasoning.py](../../src/lab1b_reasoning.py) to test out a different format like in a table format, for example:
 
-```
-AZURE_AI_ENDPOINT=your_azure_openai_endpoint
-AZURE_API_KEY=your_azure_openai_key
-```
 
-3. Run the script:
+    ```python
+    SYSTEM_PROMPT = """You are a research assistant that thinks carefully about questions before answering.
 
-```bash
-python lab1_reasoning.py
-```
+    When you receive a research question, first think about the problem step-by-step.
 
-4. Enter research questions at the prompt and observe:
-   - The model's thinking process streaming live in real-time
-   - The final bullet-point answer displayed separately
-
-## Example Usage
-
-When you run the application, you'll see:
-1. A prompt asking for your research question
-2. A live cyan panel that updates as the model thinks
-3. A green panel with the final bullet-point answer
-
-Try questions like:
-
-- "What are the environmental impacts of electric vehicles?"
-- "How does quantum computing differ from classical computing?"
-- "What factors contribute to biodiversity loss in rainforests?"
-
-## Benefits
-
-This approach of streaming reasoning as it happens offers several advantages:
-
-1. **Transparency**: Users can see how the model is reasoning step-by-step
-2. **Engagement**: The live updating creates a more dynamic user experience
-3. **Educational Value**: Observe the reasoning patterns of AI in real time
-4. **Debugging**: Identify reasoning flaws as they emerge
-5. **Trust**: The decision-making is no longer a black box
-
-## Lab Challenges
-
-Now that you understand the basics, try these challenges:
-
-1. **Modify the System Prompt**: Change the prompt to encourage different types of reasoning
-2. **Enhance the Visualization**: Add progress bars or animations to the thinking display
-3. **Compare Different Models**: Test how different models approach the same question
-4. **Add Error Handling**: Improve how the system handles malformed responses or network issues
-
-## Key Takeaways
-
-From this lab, you should understand:
-
-- How to encourage models to expose their reasoning process
-- Techniques for streaming AI thinking in real-time
-- The value of separating thinking from final outputs
-- How to implement a basic research assistant with visible thinking
+    After thinking, provide your final answer in a helpful table format.
+    Make sure to include all the important details in your answer.
+    """
+    ```
 
 ## Next Steps
 
-Ready to add web research capabilities to your AI research assistant? Move on to [Lab 2: Web Research Integration](lab-2-web-research.md).
+Congratulations, you should now feel comfortable using reasoning models! 
+You are now ready to move on to [Lab 2: Web Research Integration](lab-2-web-research.md).
