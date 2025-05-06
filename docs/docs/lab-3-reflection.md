@@ -70,8 +70,8 @@ If the `web_research` function is returned LangGraph will call that function, pa
 
 ## **Lab Excercise**
 
-1. Examine the **reflection_instructions** in [prompts.py](../../src/prompts.py) and see how this is used to prompt the model to generate a thoughtful follow up query.
-2. Examine the code in [lab3a_reflection.py](../../src/lab3a_reflection.py) to see a simplfied version of how a Deep Researcher graph would be built 
+1. Examine the **reflection_instructions** in `prompts.py` and see how this is used to prompt the model to generate a thoughtful follow up query.
+2. Examine the code in `lab3a_reflection.py` to see a simplfied version of how a Deep Researcher graph would be built 
 3. Run the following command to visualize the graph using LangGraph's in built function:
 
     ```python

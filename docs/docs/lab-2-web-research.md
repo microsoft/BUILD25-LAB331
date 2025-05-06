@@ -32,7 +32,7 @@ As we saw earlier the system prompt lets the model know how to respond. For the 
 the optimizes search query and a brief explanation of why this query is relevant. 
 
 !!! note
-    This system prompt and others can be found in the [prompts.py](../../src/prompts.py) file. 
+    This system prompt and others can be found in the `prompts.py` file. 
 
 The system prompt for the query writer is as follows:
 
@@ -96,7 +96,7 @@ Tavily retrieves information from the web about the topic and displays snippets 
 
 ## **Lab Excercise**
 
-1. Examine the code in [lab2a_web_research.py](../../src/lab2a_web_research.py).
+1. Examine the code in `lab2a_web_research.py`.
 
 2. Run the following command in the terminal to try out web search:
 

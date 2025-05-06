@@ -18,6 +18,9 @@ theme:
     - navigation.top
     - content.code.copy
     - content.action.edit
+    - navigation.footer
+    - navigation.tabs.sticky 
+    - content.tabs.link
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default

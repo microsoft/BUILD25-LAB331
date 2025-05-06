@@ -20,7 +20,7 @@ To access DeepSeek R1 we will be using [langchain-azure-ai](https://pypi.org/pro
 
 ## **Lab Exercise**
 
-1. Open the file [lab1a_reasoning.py](../../src/lab1a_reasoning.py) and examine the code in this file.
+1. Open the file `lab1a_reasoning.py` and examine the code in this file.
 
 2. In the VS Code terminal run the following command and enter a research topic.
 For example 'What's the best coffee in Seattle?'☕:
@@ -64,11 +64,11 @@ def seperate_thinking_from_final_output(text: str):
 
 ## **Lab Exercise**
 
-1. Open the [stream_llm_response.py](../../src/stream_llm_response.py) file and examine the code in this file. 
+1. Open the `stream_llm_response.py` file and examine the code in this file. 
 
     It contains a slightly updated version of this helper function in the `stream_thinking_and_answer` function. This helper function will be imported in all our python files going forward. It also contains some code that uses the Python package [rich](https://pypi.org/project/rich/) for prettier display in the terminal. 
 
-2. To test that this code works we can run the [lab1b_reasoning.py](../../src/lab1a_reasoning.py) script which imports the helper function. Run the following command in the terminal to do so:
+2. To test that this code works we can run the `lab1b_reasoning.py` script which imports the helper function. Run the following command in the terminal to do so:
 
 
     ```powershell
@@ -79,7 +79,7 @@ def seperate_thinking_from_final_output(text: str):
 
 The final output is returned as bullet points. This format can be specified in the models system prompt that tells the LLM how to behave. You do not need to add a system prompt but these can be useful for improving the format and contextual relevance of the models final response.
 
-The current system prompt in [lab1b_reasoning.py](../../src/lab1b_reasoning.py) is: 
+The current system prompt in `lab1b_reasoning.py` is: 
 
 
 ```python 
@@ -94,7 +94,7 @@ Make sure to include all the important details in your answer.
 
 ## **Lab Exercise**
 
-1. Update the system prompt in [lab1b_reasoning.py](../../src/lab1b_reasoning.py) to change the final output format. For example ask the model to return the answer as a table or in a Q&A format. 
+1. Update the system prompt in `lab1b_reasoning.py` to change the final output format. For example ask the model to return the answer as a table or in a Q&A format. 
 
 2. Rerun the following command in the terminal to test your updates:
 
