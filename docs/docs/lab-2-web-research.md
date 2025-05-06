@@ -88,12 +88,6 @@ def perform_web_search(query):
 
 Tavily retrieves information from the web about the topic and displays snippets of the results.
 
-!!! tip
-    Tavily offers several options to alter the quality and quantity of the search_results. 
-    To specify the number of search results use the `max_results` parameter. 
-    To determine the depth of the search set the `search_depth` parameter to `basic` or `advanced`. 
-    Advanced returns higher quality results but takes longer. 
-
 ## **Lab Excercise**
 
 1. Examine the code in `lab2a_web_research.py`.
@@ -103,6 +97,12 @@ Tavily retrieves information from the web about the topic and displays snippets 
     ```powershell
     python lab2a_web_research.py
     ```
+
+    !!! tip
+        Tavily offers several options to **alter the quality and quantity** of the search_results. 
+        To specify the number of search results use the `max_results` parameter. 
+        To determine the depth of the search set the `search_depth` parameter to `basic` or `advanced`. 
+        Advanced returns higher quality results but takes longer. 
     
 3. Update the code to test out returning more than one result and try the advanced search!
 
