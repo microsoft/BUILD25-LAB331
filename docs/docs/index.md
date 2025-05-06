@@ -18,7 +18,7 @@ By the end of this workshop, you'll have learnt:
 
 The workshop is organized into four labs:
 
-1. **Reasoning & Model Thoughts**
+1. **Introduction to Reasoning Models**
 2. **Web Research Integration**
 3. **Research Reflection**
 4. **Launching Your Researcher**

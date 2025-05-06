@@ -1,14 +1,14 @@
 # Getting Started
 
-## Microsoft Build Attendees
+## **Microsoft Build Attendees**
 
 The instructions on this page assume you are attending [Microsoft Build 2025](https://build.microsoft.com/){:target="_blank"} and have access to a pre-configured lab environment. This environment provides an Azure subscription with all the tools and resources needed to complete the workshop.
 
-## Introduction
+## **Introduction**
 
 This workshop is designed to teach you how to use Reasoning Models, like DeepSeek R1 and utilize tools and Reflection style architecture with LangChain to do deep research. It consists of multiple labs, each highlighting a specific feature of the process of building a deep researcher. The labs are meant to be completed in order, as each one builds on the knowledge and work from the previous lab.
 
-## Authenticate with Azure
+## **Authenticate with Azure**
 
 You need to authenticate with Azure to access DeepSeek R1. Follow these steps:
 
@@ -35,7 +35,7 @@ You need to authenticate with Azure to access DeepSeek R1. Follow these steps:
 
 4. Stay in the terminal window for the next step.
 
-## Open the Workshop and setup your Tavily account
+## **Open the Workshop and setup your Tavily account**
 
 Follow these steps to open the workshop in Visual Studio Code and set up your Tavily account for web search:
 
@@ -79,9 +79,9 @@ Follow these steps to open the workshop in Visual Studio Code and set up your Ta
     !!! warning "When the project opens in VS Code, two notifications appear in the bottom right corner. Click ✖ to close both notifications."
 
 
-## Configure the Workshop
+## **Configure the Workshop**
 
-### Create the .env file
+### **Create the .env file**
 
 1. Open a new terminal in VSCode. 
 
@@ -91,17 +91,17 @@ Follow these steps to open the workshop in Visual Studio Code and set up your Ta
 
 You can now begin with Lab 1! 
 
-## Navigation
+## **Navigation**
 
 Use the navigation menu on the left to move between labs.
 
-## Pro Tips
+## **Pro Tips**
 
 !!! tips
     1. The **Burger Menu** in the right-hand panel of the lab environment offers additional features, including the **Split Window View** and the option to end the lab. The **Split Window View** allows you to maximize the lab environment to full screen, optimizing screen space. The lab's **Instructions** and **Resources** panel will open in a separate window.
     2. If the lab instructions are slow to scroll in the lab environment, try copying the instructions’ URL and opening it in **your computer’s local browser** for a smoother experience.
     3. If you have trouble viewing an image, simply **click the image to enlarge it**.
 
-## Next Steps
+## **Next Steps**
 
 Once your environment is set up, proceed to [Lab 1: Reasoning & Model Thoughts](lab-1-reasoning-thoughts.md) to begin building your research assistant.

@@ -31,7 +31,7 @@ For example 'What's the best coffee in Seattle?'☕:
 
     What do you notice about the answer the model returns vs what a chat model would typically output? 
 
-Type in 'exit' to leave the program and continue with the next step. 
+    Type in 'exit' to leave the program and continue with the next section. 
 
 ## **Seperating Thinking from the Final Answer**
 
