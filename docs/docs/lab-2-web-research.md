@@ -106,7 +106,7 @@ Tavily retrieves information from the web about the topic and displays snippets 
     
 3. Update the code to test out returning more than one result and try the advanced search!
 
-## Next Steps
+## **Next Steps**
 
 You have now learnt how to use a reasoning model with a search tool. The next step is to summarize the web results into a cohesive summary. 
 DeepSeek can be used to create the summary and then reflect on it so gaps can be identified and filled. To learn how this is done using LangGraph, move on to [Lab 3: Research Reflection](lab-3-reflection.md).

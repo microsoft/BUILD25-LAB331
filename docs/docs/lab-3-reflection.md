@@ -1,6 +1,6 @@
-# Lab 3: Research Reflection
+# **Lab 3: Research Reflection**
 
-## Understanding Research Reflection
+## **Understanding Research Reflection**
 
 Even with web search capabilities, a single research cycle often leaves important questions unanswered. Real research is iterative - findings from initial searches reveal what else we need to know.
 
@@ -15,16 +15,19 @@ The complete iterative **'Deep Research'** process looks like this:
 
 ![Iterative Research Process](media/deep_research_outline_image.png)
 
-## When To Use An AI Framework
+## **When To Use An AI Framework**
 
-This process will give us the high quality results but veers away from the linear flow of the scripts we saw in the previous labs. As AI workflows become more complex, developers need to write code that takes into account things like states, conditional branching, tool use and more. To simplify this process it is often useful to use an AI framework. [LangGraph](https://www.langchain.com/langgraph) is a Python framework that lets you build stateful, multi-step reasoning workflows using large language models by representing them as graphs. It’s built on top of LangChain and designed for more complex use cases.
+This process will give us the high quality results but veers away from the linear flow of the scripts we saw in the previous labs. As AI workflows become more complex, developers need to write code that takes into account things like states, conditional branching, tool use and more. To simplify this process it is often useful to use an AI framework. 
 
-## Using LangGraph For The Iterative Research Process
+[LangGraph](https://www.langchain.com/langgraph) is a Python framework that lets you build stateful, multi-step reasoning workflows using large language models by representing them as graphs. It’s built on top of LangChain and designed for more complex use cases.
 
-### States in LangGraph
+## **Using LangGraph For The Iterative Research Process**
+
+### ****States in LangGraph**
 
 One of the things to note about this process is that we have to keep track of the **state** of the running summary and web results so we can update them with each iteration. LangGraph allows us to do this by creating an overall `State` class with different variables that can be updated and passed between steps. 
 For this project we create a `SummaryState` that looks like this:
+
 
 ```python
 class SummaryState:
@@ -42,15 +45,16 @@ This state is what is passed between the different functions and allows us at an
 
 !!! tip
     🧠 Key Concepts in LangGraph:
-    Nodes = individual steps that can update the state in some way (e.g. get web research results, retrieve docs, update memory)
 
-    Edges = the transitions between those steps, which can depend on model outputs
+    **Nodes** = individual steps that can update the state in some way (e.g. get web research results, retrieve docs, update memory)
 
-    State = shared memory or variables passed between steps
+    **Edges** = the transitions between those steps, which can depend on model outputs
 
-    Loops & Branching (Conditional Edges) = supports revisiting steps or changing paths based on conditions
+    **State** = shared memory or variables passed between steps
 
-### Nodes And Edges in LangGraph
+    **Loops & Branching (Conditional Edges)** = supports revisiting steps or changing paths based on conditions
+
+### **Nodes And Edges in LangGraph**
 
 In order for us to carry out iterative research we need a way to be able to know when to keep researching and when to return the final report. We can create a function that contains some condition that decides which route to take. In LangGraph such a function is called a **conditional edge**. For our Deep Researcher we will set the simple condition of whether research has been done 3 times (remember 0 is included). The function looks like this:
 
@@ -77,7 +81,7 @@ If the `web_research` function is returned LangGraph will call that function, pa
     you should see a mermaid diagram like this:
     ![]()
 
-## Putting it all together
+## **Putting it all together**
 
 ## **Lab Excercise**
 
@@ -87,6 +91,6 @@ If the `web_research` function is returned LangGraph will call that function, pa
     python lab3b_reflection.py
     ```
 
-## Next Steps
+## **Next Steps**
 
 We can now put everything we've learnt into practice by building a Deep Rearch application. Move on to [Lab 4: Launching Your Researcher](lab-4-launch-researcher.md).

@@ -1,8 +1,8 @@
-# Lab 4: Launching Your Research Assistant
+# **Lab 4: Launching Your Research Assistant**
 
 In this lab, you'll transform your terminal-based research assistant into a professional web application using FastAPI and WebSockets. This web interface provides a more user-friendly experience with real-time research updates and a polished UI.
 
-## Architecture Overview
+## **Architecture Overview**
 
 The web application uses a modern architecture:
 
@@ -11,7 +11,7 @@ The web application uses a modern architecture:
 
 ![Web App Architecture](media/lab4_architecture.jpg)
 
-## Running the Application
+## **Running the Application**
 
 To launch the web application:
 
@@ -33,7 +33,7 @@ uvicorn app.main:app --reload
 http://localhost:8000
 ```
 
-## Using the Web Interface
+## **Using the Web Interface**
 
 The web application features a clean, intuitive interface:
 
@@ -43,7 +43,7 @@ The web application features a clean, intuitive interface:
 4. **Thinking Process**: Click the thought bubble icon to view the AI's reasoning process
 5. **Final Report**: View the comprehensive research report with citations
 
-## Congratulations!
+## **Congratulations!**
 
 You've successfully built and deployed a sophisticated AI research assistant using Azure OpenAI, LangGraph, and FastAPI. This application demonstrates modern AI techniques including:
 
