@@ -6,15 +6,20 @@ The workshop repository on GitHub contains everything needed for the workshop. T
 
 * Repository: [microsoft/BUILD25-LAB331/tree/main](https://github.com/microsoft/BUILD25-LAB331/tree/main){:target="_blank"}
 
-## Microsoft Learn resources
+This project is also avaialable as an Azure Sample. If you enjoyed this workshop please star the repo⭐
+
+* [Deep Research](https://github.com/Azure-Samples/deepresearch/tree/main)
+
+This workshop is based on the Open Deep Research repository from Langchain. Thank you to the Langchain team for their excellent OSS work! 
+
+* [Langchain Open Deep Research](https://github.com/langchain-ai/open_deep_research)
+
+
+## Other resources
 
 * [Azure AI Foundry](https://ai.azure.com/) 
 * [LangGraph Documentation](https://langchain-ai.github.io/langgraph/)
 * [Tavily Python SDK](https://docs.tavily.com/docs/tavily-api/python-sdk)
-
-## Deep Researcher sample
-
-Find the official Deep Research Sample here: 
 
 ## Thank you
 
