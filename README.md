@@ -62,6 +62,6 @@ contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additio
 
 | Resources          | Links                             | Description        |
 |:-------------------|:----------------------------------|:-------------------|
-| Session Home Page | https://build.microsoft.com/en-US/sessions/LAB331?source=sessions | Session Homepage on Build|
+| Session Home Page | https://build.microsoft.com/sessions/LAB331 | Session Homepage on Build|
 | Learn Plan  | [http://aka.ms/build/lab331](http://aka.ms/build/lab331) | Learn plan to follow and learn at your own pace|
 
