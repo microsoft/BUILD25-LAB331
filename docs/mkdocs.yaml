@@ -1,11 +1,11 @@
-site_name: Azure Deep Research Workshop
-site_url: https://example.com/
+site_name: Deep Reasearch with DeepSeek R1 and LangChain
+site_url: http://aka.ms/build/lab331
 site_author: Microsoft
 site_description: >-
-  Learn how to build an AI-powered research assistant using Azure OpenAI, LangGraph, and FastAPI.
+  Learn how to build an AI-powered research assistant using DeepSeek R1, LangGraph, and FastAPI.
 
-repo_name: azure-deep-research-workshop
-repo_url: https://github.com/yourusername/azure-deep-research
+repo_name: BUILD25-LAB331
+repo_url: https://github.com/microsoft/BUILD25-LAB331
 edit_uri: edit/main/docs/docs/
 
 theme:
@@ -18,6 +18,9 @@ theme:
     - navigation.top
     - content.code.copy
     - content.action.edit
+    - navigation.footer
+    - navigation.tabs.sticky 
+    - content.tabs.link
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
@@ -35,7 +38,7 @@ theme:
         name: Switch to light mode
   icon:
     repo: fontawesome/brands/github
-  logo: media/magnifying-glass-logo.svg
+  logo: 
   favicon: media/favicon.ico
 
 plugins:
@@ -62,7 +65,7 @@ nav:
   - Home: index.md
   - Getting Started: getting-started.md
   - Labs:
-    - "Lab 1: Reasoning & Model Thoughts": lab-1-reasoning-thoughts.md
+    - "Lab 1: Introduction to Reasoning Models": lab-1-introduction-to-reasoning-models.md
     - "Lab 2: Web Research Integration": lab-2-web-research.md
     - "Lab 3: Research Reflection": lab-3-reflection.md
     - "Lab 4: Launching Your Researcher": lab-4-launch-researcher.md
@@ -77,3 +80,6 @@ extra:
       link: https://twitter.com/MSFTAzure
     - icon: fontawesome/brands/linkedin
       link: https://www.linkedin.com/company/microsoft/
+
+extra_css:
+  - css/custom.css

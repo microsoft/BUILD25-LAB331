@@ -19,10 +19,9 @@ from azure.core.credentials import AzureKeyCredential
 from langchain_core.messages import HumanMessage, SystemMessage
 from langgraph.graph import StateGraph, START, END
 
-from prompts import query_writer_instructions, summarizer_instructions, reflection_instructions, get_current_date, web_research_instructions
+from prompts import query_writer_instructions, summarizer_instructions, reflection_instructions, get_current_date
 from formatting import deduplicate_and_format_sources, format_sources
 from states import SummaryState, SummaryStateInput, SummaryStateOutput
-from azure.identity.aio import AzureDeveloperCliCredential, get_bearer_token_provider
 
 from tavily import AsyncTavilyClient
 from dotenv import load_dotenv

@@ -1,45 +1,48 @@
-
-
-# Using this Repo
-
-- You are the direct owner of this repo!  Check it out at [https://repos.opensource.microsoft.com/orgs/microsoft/repos/<this-repo>](https://repos.opensource.microsoft.com/orgs/microsoft/repos/<this-repo>).
-- Once you find your repo in the open source portal, bookmark that link, because you'll be deleting these instructions before you go live.
-- As an owner, it is your responsibility to release it to the public _and_ maintain it up until December 1st, 2025, including PRs and Issues.
-- Projects, Wiki, and Discussions are disabled in this repo, though you can turn them back on if you wish.
-- If you end up not using this repo for your session, please permanently delete it from the opensource portal.
-
-## Content to add
-- Fill out the rest of this readme as needed.
-- Use subfolders necessary for delivering your call to action. Delete any unused folders.
-- Do not substitute official product documentation posted on learn with content posted in this repo.  Official product documentation belongs on Learn only.
-- In session resources below, add a link back to your session on the build website so people can find you there.
-
-## Elevating your permissions
-In order to take administrative steps, including making your repo public, you will need to elevate your account to Admin permissions temporarily.
-1. Visit this repos homepage in the opensource portal at https://repos.opensource.microsoft.com/orgs/microsoft/repos/<this-repo>.
-1. On the right side of the page, under Direct Owner access, click Elevate your access and follow the prompts for Just-in time access.
-2. Come back to github, and refresh the repo.  You should see a new Settings tab.
-
-## Release Steps
-1. Make sure this "using this repo" section of the readme is deleted, everything above the banner graphic.
-2. If applicable, make sure your content is ready to be public, e.g. it is no longer embargoed or tented.
-3. Elevate your permissions to the repo in the open source portal.
-4. Come back to github, and click on the repo's `Settings` tab.
-5. Scroll down to the danger zone and click to change visibility of the repo.  Make the repos visibility `Public`.
-
 <p align="center">
 <img src="img/banner.jpg" alt="decorative banner" width="1200"/>
 </p>
-# Build25 [SESSION ID] - [SESSION TITLE]
+
+# Build25 LAB331 - Deep Research with LangChain and DeepSeek R1
 
 ## Description
 
-Add your session description and information.  Feel free to retitle this heading.
+In this hands-on workshop, you'll learn how **Reasoning Models**, like DeepSeek R1 work and how to use them for deep research. 
+
+### The complete iterative deep research process includes:
+
+1. **Query Generation**: Query generation based on the users research topic input 
+2. **Web Search**: Searching the web based on the generated query
+3. **Summarization**: Summarization of the web search results into a report
+4. **Knowledge Gap Identification**: Reflection on the summary and identification of specific knowledge gaps to fill
+5. **Follow-up search cycles**: Iterative search and reflection cycles based on identified gaps
+6. **Final Report**: Synthesis of all findings into a comprehensive report
+
+![Azure Deep Research App](./docs/docs/media/deep_researcher_architecture.png)
+
+## What You'll Learn
+
+This workshop has been built to teach you foundational concepts for using reasoning models. To view the full application code see the [Deep Research Azure Sample](https://github.com/Azure-Samples/deepresearch). For a more in depth understanding of how reasoning models work read [this article](https://techcommunity.microsoft.com/blog/azure-ai-services-blog/everything-you-need-to-know-about-reasoning-models-o1-o3-o4-mini-and-beyond/4406846). 
+
+### By the end of this workshop, you'll have learnt:
+
+- What a reasoning model is and how to use DeepSeek R1
+-  How to use reasoning models with tools like [Tavily](https://app.tavily.com) web search for optimum search results
+- What [LangGraph](https://www.langchain.com/langgraph) is and how to implement reflection style archictecture with it
+- How to use LangGraph to perform iterative research cycles to build comprehensive knowledge
+- How to deploy the final application
+
+## Workshop Structure
+
+The workshop is organized into four labs:
+
+1. **[Introduction to Reasoning Models](./docs/docs/lab-1-introduction-to-reasoning-models.md)**
+2. **[Web Research Integration](./docs/docs/lab-2-web-research.md)**
+3. **[Research Reflection](./docs/docs/lab-3-reflection.md)**
+4. **[Launching Your Researcher](./docs/docs/lab-4-launch-researcher.md)**
 
 ## Content Owners
 
-Add your name(s) and titles (required)
-Add your likeness (optional)
+Marlene Mhangami, Senior Developer Advocate at Microsoft
 
 ## Contributing
 
@@ -59,6 +62,6 @@ contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additio
 
 | Resources          | Links                             | Description        |
 |:-------------------|:----------------------------------|:-------------------|
-| Build session page | https://build.microsoft.com/sessions/LAB331 | Event session page with downloadable recording, slides, resources, and speaker bio |
-|Microsoft Learn|aka.ms/build25/plans/friendlyname<br>aka.ms/build25/collection/friendlyname|Official Collection or Plan with skilling resources to learn at your own pace|
+| Session Home Page | https://build.microsoft.com/sessions/LAB331 | Session Homepage on Build|
+| Learn Plan  | [http://aka.ms/build/lab331](http://aka.ms/build/lab331) | Learn plan to follow and learn at your own pace|
 

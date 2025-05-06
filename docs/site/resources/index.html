@@ -6,13 +6,13 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Learn how to build an AI-powered research assistant using Azure OpenAI, LangGraph, and FastAPI.">
+        <meta name="description" content="Learn how to build an AI-powered research assistant using DeepSeek R1, LangGraph, and FastAPI.">
       
       
         <meta name="author" content="Microsoft">
       
       
-        <link rel="canonical" href="https://example.com/resources/">
+        <link rel="canonical" href="http://aka.ms/build/lab331/resources/">
       
       
         <link rel="prev" href="../lab-4-launch-researcher/">
@@ -26,7 +26,7 @@
     
     
       
-        <title>Resources - Azure Deep Research Workshop</title>
+        <title>Resources - Deep Reasearch with DeepSeek R1 and LangChain</title>
       
     
     
@@ -51,6 +51,8 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
+    
+      <link rel="stylesheet" href="../css/custom.css">
     
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -101,11 +103,12 @@
 
   
 
-<header class="md-header md-header--shadow" data-md-component="header">
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="Azure Deep Research Workshop" class="md-header__button md-logo" aria-label="Azure Deep Research Workshop" data-md-component="logo">
+    <a href=".." title="Deep Reasearch with DeepSeek R1 and LangChain" class="md-header__button md-logo" aria-label="Deep Reasearch with DeepSeek R1 and LangChain" data-md-component="logo">
       
-  <img src="../media/magnifying-glass-logo.svg" alt="logo">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -116,7 +119,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Azure Deep Research Workshop
+            Deep Reasearch with DeepSeek R1 and LangChain
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -202,26 +205,26 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/yourusername/azure-deep-research" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/microsoft/BUILD25-LAB331" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    azure-deep-research-workshop
+    BUILD25-LAB331
   </div>
 </a>
       </div>
     
   </nav>
   
+    
+  
 </header>
     
     <div class="md-container" data-md-component="container">
       
       
-        
-          
         
       
       <main class="md-main" data-md-component="main">
@@ -238,22 +241,23 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Azure Deep Research Workshop" class="md-nav__button md-logo" aria-label="Azure Deep Research Workshop" data-md-component="logo">
+    <a href=".." title="Deep Reasearch with DeepSeek R1 and LangChain" class="md-nav__button md-logo" aria-label="Deep Reasearch with DeepSeek R1 and LangChain" data-md-component="logo">
       
-  <img src="../media/magnifying-glass-logo.svg" alt="logo">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    Azure Deep Research Workshop
+    Deep Reasearch with DeepSeek R1 and LangChain
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/yourusername/azure-deep-research" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/microsoft/BUILD25-LAB331" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    azure-deep-research-workshop
+    BUILD25-LAB331
   </div>
 </a>
     </div>
@@ -361,12 +365,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../lab-1-reasoning-thoughts/" class="md-nav__link">
+      <a href="../lab-1-introduction-to-reasoning-models/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Lab 1: Reasoning & Model Thoughts
+    Lab 1: Introduction to Reasoning Models
     
   </span>
   
@@ -519,18 +523,27 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#microsoft-learn-resources" class="md-nav__link">
+  <a href="#azure-sample" class="md-nav__link">
     <span class="md-ellipsis">
-      Microsoft Learn resources
+      Azure Sample
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#deep-researcher-sample" class="md-nav__link">
+  <a href="#langchain-open-deep-researcher" class="md-nav__link">
     <span class="md-ellipsis">
-      Deep Researcher sample
+      LangChain Open Deep Researcher
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Other resources
     </span>
   </a>
   
@@ -611,18 +624,27 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#microsoft-learn-resources" class="md-nav__link">
+  <a href="#azure-sample" class="md-nav__link">
     <span class="md-ellipsis">
-      Microsoft Learn resources
+      Azure Sample
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#deep-researcher-sample" class="md-nav__link">
+  <a href="#langchain-open-deep-researcher" class="md-nav__link">
     <span class="md-ellipsis">
-      Deep Researcher sample
+      LangChain Open Deep Researcher
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Other resources
     </span>
   </a>
   
@@ -653,7 +675,7 @@
 
 
   
-    <a href="https://github.com/yourusername/azure-deep-research/edit/main/docs/docs/resources.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/microsoft/BUILD25-LAB331/edit/main/docs/docs/resources.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -665,16 +687,24 @@
 <h2 id="workshop-repository-and-documentation">Workshop Repository and Documentation</h2>
 <p>The workshop repository on GitHub contains everything needed for the workshop. The repo includes the source code (src folder) for the sample application, the documentation (docs) built with MkDocs, and the Azure deployment resources (infra) for the workshop.</p>
 <ul>
-<li>Repository: <a href="https://github.com/microsoft/BUILD25-LAB331/tree/main" target="_blank">microsoft/BUILD25-LAB331/tree/main</a></li>
+<li><a href="https://github.com/microsoft/BUILD25-LAB331/tree/main" target="_blank">microsoft/BUILD25-LAB331</a></li>
 </ul>
-<h2 id="microsoft-learn-resources">Microsoft Learn resources</h2>
+<h2 id="azure-sample">Azure Sample</h2>
+<p>This project is also avaialable as an Azure Sample that allows you deploy the application in production. If you enjoyed this workshop ⭐please star the sample⭐</p>
+<ul>
+<li><a href="https://github.com/Azure-Samples/deepresearch/tree/main">Deep Research</a></li>
+</ul>
+<h2 id="langchain-open-deep-researcher">LangChain Open Deep Researcher</h2>
+<p>This workshop is based on the Open Deep Research repository from Langchain. Thank you to the Langchain team for their excellent OSS work! </p>
+<ul>
+<li><a href="https://github.com/langchain-ai/open_deep_research">Langchain Open Deep Research</a></li>
+</ul>
+<h2 id="other-resources">Other resources</h2>
 <ul>
 <li><a href="https://ai.azure.com/">Azure AI Foundry</a> </li>
 <li><a href="https://langchain-ai.github.io/langgraph/">LangGraph Documentation</a></li>
 <li><a href="https://docs.tavily.com/docs/tavily-api/python-sdk">Tavily Python SDK</a></li>
 </ul>
-<h2 id="deep-researcher-sample">Deep Researcher sample</h2>
-<p>Find the official Deep Research Sample here: </p>
 <h2 id="thank-you">Thank you</h2>
 <p>Thank you for participating in this workshop! If you have any suggestions for improvements or encountered any problems while running this workshop, please let us know via <a href="https://github.com/microsoft/BUILD25-LAB331/tree/main/issues" target="_blank">GitHub Issues</a>.</p>
 
@@ -694,6 +724,8 @@
             </div>
           
           
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
@@ -706,6 +738,46 @@
       </main>
       
         <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../lab-4-launch-researcher/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Lab 4: Launching Your Researcher">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Lab 4: Launching Your Researcher
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../summary/" class="md-footer__link md-footer__link--next" aria-label="Next: Summary">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Summary
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -768,7 +840,7 @@
     
     
       
-      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.expand", "navigation.indexes", "navigation.top", "content.code.copy", "content.action.edit"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.expand", "navigation.indexes", "navigation.top", "content.code.copy", "content.action.edit", "navigation.footer", "navigation.tabs.sticky", "content.tabs.link"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>

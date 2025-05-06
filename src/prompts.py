@@ -32,19 +32,6 @@ Example output:
 Provide your response in JSON format. Do not include any tags or backticks. Only return
 Json like in the example:"""
 
-web_research_instructions="""
-return a dict with a 'results' key containing a list of search results. 
-The results should contain the search result and the url for each result.
-include an image_url that also leads to an image associated with the search result.
-You should make sure you return only the most relevant content from each source.
-You should return only 3 results. Each result should be a dict with the following keys:
-- title: The title of the search result
-- url: The URL of the search result
-- content: The most relevant content from the search result
-- image_url: The URL of an image associated with the search result
-- raw_content: The full content of the search result (if available and not over 1000 tokens)
-"""
-
 summarizer_instructions="""
 <GOAL>
 Generate a high-quality summary of the provided context.

@@ -12,3 +12,4 @@ python-multipart
 jinja2
 rich_click
 azure-mgmt-cognitiveservices
+ipython

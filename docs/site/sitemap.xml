@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>https://example.com/</loc>
-         <lastmod>2025-04-25</lastmod>
+         <loc>http://aka.ms/build/lab331/</loc>
+         <lastmod>2025-05-06</lastmod>
     </url>
     <url>
-         <loc>https://example.com/getting-started/</loc>
-         <lastmod>2025-04-25</lastmod>
+         <loc>http://aka.ms/build/lab331/getting-started/</loc>
+         <lastmod>2025-05-06</lastmod>
     </url>
     <url>
-         <loc>https://example.com/lab-1-reasoning-thoughts/</loc>
-         <lastmod>2025-04-25</lastmod>
+         <loc>http://aka.ms/build/lab331/lab-1-introduction-to-reasoning-models/</loc>
+         <lastmod>2025-05-06</lastmod>
     </url>
     <url>
-         <loc>https://example.com/lab-2-web-research/</loc>
-         <lastmod>2025-04-25</lastmod>
+         <loc>http://aka.ms/build/lab331/lab-2-web-research/</loc>
+         <lastmod>2025-05-06</lastmod>
     </url>
     <url>
-         <loc>https://example.com/lab-3-reflection/</loc>
-         <lastmod>2025-04-25</lastmod>
+         <loc>http://aka.ms/build/lab331/lab-3-reflection/</loc>
+         <lastmod>2025-05-06</lastmod>
     </url>
     <url>
-         <loc>https://example.com/lab-4-launch-researcher/</loc>
-         <lastmod>2025-04-25</lastmod>
+         <loc>http://aka.ms/build/lab331/lab-4-launch-researcher/</loc>
+         <lastmod>2025-05-06</lastmod>
     </url>
     <url>
-         <loc>https://example.com/resources/</loc>
-         <lastmod>2025-04-25</lastmod>
+         <loc>http://aka.ms/build/lab331/resources/</loc>
+         <lastmod>2025-05-06</lastmod>
     </url>
     <url>
-         <loc>https://example.com/summary/</loc>
-         <lastmod>2025-04-25</lastmod>
+         <loc>http://aka.ms/build/lab331/summary/</loc>
+         <lastmod>2025-05-06</lastmod>
     </url>
     <url>
-         <loc>https://example.com/includes/introduction-event/</loc>
-         <lastmod>2025-04-25</lastmod>
+         <loc>http://aka.ms/build/lab331/includes/introduction-event/</loc>
+         <lastmod>2025-05-06</lastmod>
     </url>
     <url>
-         <loc>https://example.com/includes/introduction-self-guided/</loc>
-         <lastmod>2025-04-25</lastmod>
+         <loc>http://aka.ms/build/lab331/includes/introduction-self-guided/</loc>
+         <lastmod>2025-05-06</lastmod>
     </url>
 </urlset>
