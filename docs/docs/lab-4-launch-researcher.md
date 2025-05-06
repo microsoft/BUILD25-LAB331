@@ -1,15 +1,17 @@
 # **Lab 4: Launching Your Research Assistant**
 
-In this lab, you'll transform your terminal-based research assistant into a professional web application using FastAPI and WebSockets. This web interface provides a more user-friendly experience with real-time research updates and a polished UI.
+In this lab, you'll transform your terminal-based research assistant into a professional web application!
 
-## **Architecture Overview**
+## **Application Overview**
 
-The web application uses a modern architecture:
+The web application uses:
 
 1. **Backend**: FastAPI Python server with WebSocket support
 2. **Frontend**: HTML/CSS/JavaScript with Tailwind CSS for styling
 
-![Web App Architecture](media/lab4_architecture.jpg)
+Your launched application should look like this when running your research: 
+
+![Web App Architecture](media/deep-app.png)
 
 ## **Running the Application**
 
@@ -45,12 +47,6 @@ The web application features a clean, intuitive interface:
 
 ## **Congratulations!**
 
-You've successfully built and deployed a sophisticated AI research assistant using Azure OpenAI, LangGraph, and FastAPI. This application demonstrates modern AI techniques including:
+You've successfully built and deployed a Deep Researcher using DeepSeek R1, LangChain, and FastAPI!
 
-- Reasoning models
-- Web search integration
-- Knowledge gap identification
-- Iterative research cycles
-- Real-time progress streaming
-
-Your application now provides a powerful research tool that can help users explore any topic with the assistance of advanced AI capabilities.
+Checkout the [Summary]() to see an overview of what you learnt and navigate to the [Resources]() page for links to access this lab and more at home! 

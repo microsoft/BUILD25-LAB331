@@ -23,7 +23,7 @@ This process will give us the high quality results but veers away from the linea
 
 ## **Using LangGraph For The Iterative Research Process**
 
-### ****States in LangGraph**
+### **States in LangGraph**
 
 One of the things to note about this process is that we have to keep track of the **state** of the running summary and web results so we can update them with each iteration. LangGraph allows us to do this by creating an overall `State` class with different variables that can be updated and passed between steps. 
 For this project we create a `SummaryState` that looks like this:

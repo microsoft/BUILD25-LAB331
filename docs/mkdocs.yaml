@@ -1,10 +1,10 @@
-site_name: Azure Deep Research Workshop
+site_name: Deep Reasearch with DeepSeek R1 and LangChain
 site_url: http://aka.ms/build/lab331
 site_author: Microsoft
 site_description: >-
-  Learn how to build an AI-powered research assistant using Azure OpenAI, LangGraph, and FastAPI.
+  Learn how to build an AI-powered research assistant using DeepSeek R1, LangGraph, and FastAPI.
 
-repo_name: azure-deep-research-workshop
+repo_name: BUILD25-LAB331
 repo_url: https://github.com/microsoft/BUILD25-LAB331
 edit_uri: edit/main/docs/docs/
 
@@ -35,7 +35,7 @@ theme:
         name: Switch to light mode
   icon:
     repo: fontawesome/brands/github
-  logo: media/magnifying-glass-logo.svg
+  logo: 
   favicon: media/favicon.ico
 
 plugins:
@@ -77,3 +77,6 @@ extra:
       link: https://twitter.com/MSFTAzure
     - icon: fontawesome/brands/linkedin
       link: https://www.linkedin.com/company/microsoft/
+
+extra_css:
+  - css/custom.css
