@@ -57,7 +57,7 @@ def generate_search_query(state: SummaryState):
     response_stream = model.stream(messages)
     thoughts, query = stream_thinking_and_answer(response_stream, "🔍 Query Generation Thinking")
     
-    display_panel(f"**Search Query**: {query}", "🔍 Generated Search Query and updated state.search_query", "green")
+    display_panel(console, f"**Search Query**: {query}", "🔍 Generated Search Query and updated state.search_query", "green")
     
     return {"search_query": query}
 
@@ -77,11 +77,13 @@ def perform_web_search(state: SummaryState):
     console.print("\n[bold]Search Results:[/]")
     for i, result in enumerate(search_results["results"], 1):
         display_panel(
+            console,
             f"**Title**: {result['title']}\n\n**Snippet**: {result['content']}\n\n**URL**: {result['url']}",
             f"Result {i}",
             "blue"
         )
     display_panel(
+            console,
             f"updated state.web_research_results and state.research_loop_count",
             "green"
         )
@@ -124,7 +126,7 @@ def summarize_search_results(state: SummaryState):
     response_stream = model.stream(messages)
     thoughts, summary = stream_thinking_and_answer(response_stream, "📝 Summarization Thinking")
     
-    display_panel(summary, "📝 Research Summary created and updated state.running_summary", "green")
+    display_panel(console, summary, "📝 Research Summary created and updated state.running_summary", "green")
     
     return {"running_summary": summary}
 
@@ -153,6 +155,7 @@ def identify_knowledge_gaps(state: SummaryState):
         follow_up_query = f"More information about {state.research_topic}"
     
     display_panel(
+        console,
         f"**Knowledge Gap**: {knowledge_gap}\n\n**Follow-up Query**: {follow_up_query}",
         "🔍 Knowledge Gap Analysis done and updated state.search_query and state.knowledge_gap",
         "yellow"
@@ -170,16 +173,16 @@ def finalize_summary(state: SummaryState):
         final_summary += f"{source}\n"
 
     
-    display_panel(final_summary, "📊 Complete Research Report and updated state.running_summary", "purple")
+    display_panel(console, final_summary, "📊 Complete Research Report and updated state.running_summary", "purple")
     return {"running_summary": final_summary}
 
 # Conditional function that decides whether to continue research or finalize summary
 def route_research(state: SummaryState):
-    if state.research_loop_count <= 2:
-        display_panel("web_research", "📊 Doing more research", "orange")
+    if state.research_loop_count <= 1:
+        display_panel(console, "web_research", "📊 Doing more research", "yellow")
         return "web_research"
     else:
-        display_panel("finalize_summary", "📊 Finalizing the summary", "orange")
+        display_panel(console, "finalize_summary", "📊 Finalizing the summary", "yellow")
         return "finalize_summary" 
 
 # Set up the graph
