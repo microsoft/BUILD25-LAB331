@@ -1,7 +1,5 @@
 # Lab 3: Research Reflection
 
-In this lab, you'll learn how to create a more thorough research system by implementing knowledge gap identification and iterative research cycles. This advanced approach allows your research assistant to identify what it doesn't know and conduct follow-up research to create more comprehensive results.
-
 ## Understanding Research Reflection
 
 Even with web search capabilities, a single research cycle often leaves important questions unanswered. Real research is iterative - findings from initial searches reveal what else we need to know.
@@ -13,26 +11,48 @@ Research reflection involves:
 3. **Multiple Research Cycles**: Conducting iterative research to build comprehensive knowledge
 4. **Progressive Synthesis**: Combining findings from all iterations into a coherent whole
 
-## Lab Overview
+## When To Use An AI Framework
 
-In this lab, you'll:
+This process will give us the high quality results but veers away from the linear flow of the scripts we saw in the previous labs. As AI workflows become more complex, developers need to write code that takes into account things like states, conditional branching, tool use and more. To simplify this process it is often useful to use an AI framework. [LangGraph](https://www.langchain.com/langgraph) is a Python framework that lets you build stateful, multi-step reasoning workflows using large language models by representing them as graphs. It’s built on top of LangChain and designed for more complex use cases.
 
-1. Build upon the web search capabilities from Lab 2
-2. Implement knowledge gap analysis with AI reasoning
-3. Create an iterative research system that conducts multiple search cycles
-4. Generate comprehensive research reports combining multiple iterations
-5. See real-time streaming of the AI's thinking throughout the entire process
+## Using LangGraph For The Iterative Research Process
 
-## The Iterative Research Process
+![Iterative Research Process](media/deep_research_outline_image.png)
 
-![Iterative Research Process](media/lab3_iterative_process.jpg)
+The complete iterative **'Deep Research'** process includes:
 
-The complete iterative research process includes:
-
-1. Initial query generation and web search (from Lab 2)
-2. Knowledge gap identification after initial research
-3. Follow-up search cycles based on identified gaps
+1. Initial query generation and web search 
+2. Summarization of web search results into a report
+4. Knowledge gap identification after initial research
+5. Follow-up search cycles based on identified gaps
 4. Synthesis of all findings into a comprehensive report
+
+
+
+
+
+🧠 Key Concepts:
+Graph Nodes = individual steps (e.g. call an LLM, retrieve docs, update memory)
+
+Edges = the transitions between those steps, which can depend on model outputs
+
+State = shared memory or variables passed between steps
+
+Loops & Branching = supports revisiting steps or changing paths based on conditions
+
+✅ Why use LangGraph?
+Lets you orchestrate reasoning over multiple steps
+
+You can build agents that loop, retry, reflect, or use tools based on context
+
+Better suited than standard LangChain chains for dynamic, evolving conversations
+
+It handles state management, asynchronous execution, and tool usage elegantly
+
+
+
+
+
 
 ## The Code
 

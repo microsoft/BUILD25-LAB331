@@ -21,7 +21,7 @@ To get the best web research results possible we will create a python script tha
 
 1. **Query Generation**: Creating effective search queries based on the research topic
 2. **Web Search**: Retrieving relevant information from external sources
-3. **Information Synthesis**: Integrating the retrieved information into a cohesive summary
+3. **Summarization**: Integrating the retrieved information into a cohesive summary
 
 ![Web Research Process](media/websearch-overview.png)
 
@@ -104,10 +104,9 @@ Tavily retrieves information from the web about the topic and displays snippets 
     python lab2a_web_research.py
     ```
     
-3. Update the code to test out returning more than one result and test out the advanced search. 
-
+3. Update the code to test out returning more than one result and try the advanced search!
 
 ## Next Steps
 
-You have now learnt how to use a reasoining model with a search tool. 
-Move on to [Lab 3: Research Reflection](lab-3-reflection.md).
+You have now learnt how to use a reasoning model with a search tool. The next step is to summarize the web results into a cohesive summary. 
+DeepSeek can be used to create the summary and then reflect on it so gaps can be identified and filled. To learn how this is done using LangGraph, move on to [Lab 3: Research Reflection](lab-3-reflection.md).
