@@ -784,8 +784,8 @@
 <p><a href="https://www.langchain.com/langgraph">LangGraph</a> is a Python framework that lets you build stateful, multi-step reasoning workflows using large language models by representing them as graphs. It’s built on top of LangChain and designed for more complex use cases.</p>
 <h2 id="using-langgraph-for-the-iterative-research-process"><strong>Using LangGraph For The Iterative Research Process</strong></h2>
 <h3 id="states-in-langgraph"><strong>States in LangGraph</strong></h3>
-<p>One of the things to note about this process is that we have to keep track of the <strong>state</strong> of the running summary and web results so we can update them with each iteration. LangGraph allows us to do this by creating an overall <code>State</code> class with different variables that can be updated and passed between steps. 
-For this project we create a <code>SummaryState</code> that looks like this:</p>
+<p>One of the things to note about this process is that we have to keep track of the <strong>state</strong> of the running summary and web results so we can update them with each iteration. LangGraph allows us to do this by creating an overall <code>State</code> class with different variables that can be updated and passed between steps. </p>
+<p>For this project we create a <code>SummaryState</code> that looks like this:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">SummaryState</span><span class="p">:</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">research_topic</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="c1"># Report topic     </span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">search_query</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="c1"># Search query</span>
@@ -817,16 +817,14 @@ For this project we create a <code>SummaryState</code> that looks like this:</p>
 <h2 id="lab-excercise"><strong>Lab Excercise</strong></h2>
 <ol>
 <li>Examine the <strong>reflection_instructions</strong> in <code>prompts.py</code> and see how this is used to prompt the model to generate a thoughtful follow up query.</li>
-<li>Examine the code in <code>lab3a_reflection.py</code> to see a simplfied version of how a Deep Researcher graph would be built </li>
 <li>
-<p>Run the following command to visualize the graph using LangGraph's in built function:</p>
+<p>With each function (node) the state is updated. Run the following command to visualize how this is done using LangGraph:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">python</span> <span class="n">lab3a_reflection</span><span class="o">.</span><span class="n">py</span>
 </span></code></pre></div>
-<p>you should see a mermaid diagram like this:
-<img alt="" src="" /></p>
 </li>
 </ol>
 <h2 id="putting-it-all-together"><strong>Putting it all together</strong></h2>
+<p>You can now put everything we've learnt so far together to complete all of the deep researcher steps for 2 iterations! Our final application which we will launch after this will run the research through more iterations and you can update the system prompt for the summarization to increase or decrease the length of the final report.  </p>
 <h2 id="lab-excercise_1"><strong>Lab Excercise</strong></h2>
 <ol>
 <li>

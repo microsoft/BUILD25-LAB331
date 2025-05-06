@@ -511,6 +511,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#optional-step-deploy-your-app-to-azure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optional Step: Deploy Your App To Azure
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#congratulations" class="md-nav__link">
     <span class="md-ellipsis">
       Congratulations!
@@ -633,6 +642,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#optional-step-deploy-your-app-to-azure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optional Step: Deploy Your App To Azure
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#congratulations" class="md-nav__link">
     <span class="md-ellipsis">
       Congratulations!
@@ -678,20 +696,17 @@
 <h2 id="running-the-application"><strong>Running the Application</strong></h2>
 <p>To launch the web application:</p>
 <ol>
-<li>Install the required dependencies:</li>
-</ol>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+<li>
+<p>Start the FastAPI server:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>uvicorn<span class="w"> </span>app.main:app<span class="w"> </span>--reload
 </span></code></pre></div>
-<ol>
-<li>Start the FastAPI server:</li>
-</ol>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uvicorn<span class="w"> </span>app.main:app<span class="w"> </span>--reload
+</li>
+<li>
+<p>Open your browser and navigate to:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>http://localhost:8000
 </span></code></pre></div>
-<ol>
-<li>Open your browser and navigate to:</li>
+</li>
 </ol>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>http://localhost:8000
-</span></code></pre></div>
 <h2 id="using-the-web-interface"><strong>Using the Web Interface</strong></h2>
 <p>The web application features a clean, intuitive interface:</p>
 <ol>
@@ -701,8 +716,13 @@
 <li><strong>Thinking Process</strong>: Click the thought bubble icon to view the AI's reasoning process</li>
 <li><strong>Final Report</strong>: View the comprehensive research report with citations</li>
 </ol>
+<h2 id="optional-step-deploy-your-app-to-azure">Optional Step: Deploy Your App To Azure</h2>
+<p>You can deploy the full application to the cloud and generate a shareable link by following the instructions in the official Deep Research Azure sample repostory:</p>
+<ul>
+<li><a href="https://github.com/Azure-Samples/deepresearch">Deploy the app to Azure</a></li>
+</ul>
 <h2 id="congratulations"><strong>Congratulations!</strong></h2>
-<p>You've successfully built and deployed a Deep Researcher using DeepSeek R1, LangChain, and FastAPI!</p>
+<p>You've successfully built a Deep Researcher using DeepSeek R1, LangChain, and FastAPI!</p>
 <p>Checkout the <a href="../summary/">Summary</a> to see an overview of what you learnt and navigate to the <a href="../resources/">Resources</a> page for links to access this lab and more at home! </p>
 
 
