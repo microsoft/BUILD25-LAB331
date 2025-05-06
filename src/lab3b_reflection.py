@@ -91,8 +91,6 @@ def perform_web_search(state: SummaryState):
     return {"sources_gathered": [format_sources(search_results)], "research_loop_count": state.research_loop_count + 1, "web_research_results": [search_str]}
 
 
-     
-
 def summarize_search_results(state: SummaryState):
     """Summarize the information from search results."""
     console.print("\n[bold blue]Synthesizing information from search results...[/]")
@@ -177,7 +175,7 @@ def finalize_summary(state: SummaryState):
 
 # Conditional function that decides whether to continue research or finalize summary
 def route_research(state: SummaryState):
-    if state.research_loop_count <= 1:
+    if state.research_loop_count <= 2:
         display_panel("web_research", "📊 Doing more research", "orange")
         return "web_research"
     else:
