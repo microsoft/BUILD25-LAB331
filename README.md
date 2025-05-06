@@ -21,7 +21,10 @@ In this hands-on workshop, you'll learn how **Reasoning Models**, like DeepSeek 
 
 ## What You'll Learn
 
-This workshop has been built to teach you foundational concepts for using reasoning models. To view the full application code see the [Deep Research Azure Sample](https://github.com/Azure-Samples/deepresearch). For a more in depth understanding of how reasoning models work read [this article](https://techcommunity.microsoft.com/blog/azure-ai-services-blog/everything-you-need-to-know-about-reasoning-models-o1-o3-o4-mini-and-beyond/4406846). 
+This workshop has been built to teach you foundational concepts for using reasoning models. 
+
+- To view the full application code see the [Deep Research Azure Sample](https://github.com/Azure-Samples/deepresearch). 
+- For a more in depth understanding of how reasoning models work read [this article](https://techcommunity.microsoft.com/blog/azure-ai-services-blog/everything-you-need-to-know-about-reasoning-models-o1-o3-o4-mini-and-beyond/4406846). 
 
 ### By the end of this workshop, you'll have learnt:
 
