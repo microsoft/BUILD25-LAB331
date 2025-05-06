@@ -54,8 +54,8 @@ def generate_search_query(state: SummaryState):
     
     # Stream the model's thinking process
     console.print("\n[bold]Query Generation Process:[/]\n")
-    response_stream = model.invoke(messages)
-    thoughts, query = strip_thinking_tokens(response_stream)
+    response_stream = model.stream(messages)
+    thoughts, query = stream_thinking_and_answer(response_stream, "🔍 Query Generation Thinking")
     
     display_panel(f"**Search Query**: {query}", "🔍 Generated Search Query and updated state.search_query", "green")
     
@@ -121,8 +121,8 @@ def summarize_search_results(state: SummaryState):
     
     # Stream the model's thinking process for summarization
     console.print("\n[bold]Summarization Process:[/]\n")
-    response_stream = model.invoke(messages)
-    thoughts, summary = strip_thinking_tokens(response_stream)
+    response_stream = model.stream(messages)
+    thoughts, summary = stream_thinking_and_answer(response_stream, "📝 Summarization Thinking")
     
     display_panel(summary, "📝 Research Summary created and updated state.running_summary", "green")
     
