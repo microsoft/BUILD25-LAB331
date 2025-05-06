@@ -71,17 +71,15 @@ If the `web_research` function is returned LangGraph will call that function, pa
 ## **Lab Excercise**
 
 1. Examine the **reflection_instructions** in `prompts.py` and see how this is used to prompt the model to generate a thoughtful follow up query.
-2. Examine the code in `lab3a_reflection.py` to see a simplfied version of how a Deep Researcher graph would be built 
-3. Run the following command to visualize the graph using LangGraph's in built function:
+2. Run the following command to visualize how the SummaryStae is updated using LangGraph, run the following command:
 
     ```python
     python lab3a_reflection.py
     ```
 
-    you should see a mermaid diagram like this:
-    ![]()
-
 ## **Putting it all together**
+
+You can now put everything we've learnt so far together to complete all of the deep researcher steps for 2 iterations! Our final application which we will launch after this will run the research through more iterations and you can update the system prompt for the summarization to increase or decrease the length of the final report.  
 
 ## **Lab Excercise**
 

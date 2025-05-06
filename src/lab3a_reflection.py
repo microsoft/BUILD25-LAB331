@@ -1,44 +1,220 @@
+import os
+import json
+import dotenv
+from typing import Dict, List, Any, Tuple
+from langchain_azure_ai.chat_models import AzureAIChatCompletionsModel
+from azure.core.credentials import AzureKeyCredential
+from langchain_core.messages import HumanMessage, SystemMessage
+from tavily import TavilyClient
+from rich.console import Console
+from rich.prompt import Prompt
+from rich.progress import Progress, SpinnerColumn, TextColumn
 from langgraph.graph import StateGraph, START, END
-from states import SummaryState, SummaryStateInput, SummaryStateOutput
-from IPython.display import Image, display
 
+from stream_llm_response import stream_thinking_and_answer, display_panel, strip_thinking_tokens
+from prompts import query_writer_instructions, summarizer_instructions, get_current_date, reflection_instructions
+from states import SummaryState, SummaryStateInput, SummaryStateOutput
+from formatting import deduplicate_and_format_sources, format_sources
+
+# Load environment variables
+dotenv.load_dotenv()
+
+# Initialize console and clients
+console = Console()
+tavily_client = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
+
+endpoint = os.getenv("AZURE_INFERENCE_ENDPOINT")
+model_name = os.getenv("AZURE_DEEPSEEK_DEPLOYMENT")
+key = os.getenv("AZURE_AI_API_KEY")
+
+# Set up the AI model
+model = AzureAIChatCompletionsModel(
+    endpoint=endpoint,
+    credential=AzureKeyCredential(key),
+    model_name=model_name,  
+)
   
 
 def generate_search_query(state: SummaryState):
     """Generate an effective search query for the research topic."""
-    ...
+    console.print("[bold blue]Generating optimal search query...[/]")
+
+    # Format the prompt
+    current_date = get_current_date()
+
+    formatted_prompt = query_writer_instructions.format(
+        current_date=current_date,
+        research_topic=state.research_topic
+    )
     
-    return {"search_query": 'query'}
+    messages = [
+        SystemMessage(content=formatted_prompt),
+        HumanMessage(content=f"Generate a query for web search. The research topic is: {state.research_topic}")
+    ]
+    
+    # Stream the model's thinking process
+    console.print("\n[bold]Query Generation Process:[/]\n")
+    response_stream = model.stream(messages)
+    thoughts, query = stream_thinking_and_answer(response_stream, "🔍 Query Generation Thinking")
+    
+    display_panel(console, 
+                  f"""**Current SummaryState**: 
+
+                    - research_topic: {state.research_topic}
+                    - search_query: {state.search_query}
+                    - web_research_results: {state.web_research_results}
+                    - research_loop_count: {state.research_loop_count}
+                    - running_summary: {state.running_summary}
+                    - knowledge_gap: {state.knowledge_gap}
+                  """, 
+                  "🔍 Generated Search Query and updated state.search_query", 
+                  "green")
+    
+    return {"search_query": query}
 
 def perform_web_search(state: SummaryState):
     """Perform a web search using the Tavily API."""
-    ...
+    console.print("\n[bold blue]Performing web search...[/]")
     
-    return {"sources_gathered": 'search_results'}
+    with Progress(
+        SpinnerColumn(),
+        TextColumn("[progress.description]{task.description}"),
+        transient=True,
+    ) as progress:
+        progress.add_task("Searching the web...", total=None)
+        search_results = tavily_client.search(query=state.search_query, max_results=3)
+    
+    # Display search result snippets
+    console.print("\n[bold]Search Results:[/]")
+    for i, result in enumerate(search_results["results"], 1):
+        display_panel(
+            console,
+            f"""**Current SummaryState**: 
+
+                    - research_topic: {state.research_topic}
+                    - search_query: {state.search_query}
+                    - web_research_results: {state.web_research_results}
+                    - research_loop_count: {state.research_loop_count}
+                    - running_summary: {state.running_summary}
+                    - knowledge_gap: {state.knowledge_gap}
+                  """,
+            f"Result {i}",
+            "blue"
+        )
+    
+    search_str = deduplicate_and_format_sources(search_results, max_tokens_per_source=1000)
+    
+    return {"sources_gathered": [format_sources(search_results)], "research_loop_count": state.research_loop_count + 1, "web_research_results": [search_str]}
 
 
 def summarize_search_results(state: SummaryState):
     """Summarize the information from search results."""
-    ...
+    console.print("\n[bold blue]Synthesizing information from search results...[/]")
+
+    # Existing summary
+    existing_summary = state.running_summary
+
+    # Most recent web research
+    most_recent_web_research = state.web_research_results[-1]
     
-    return {"running_summary": 'summary'}
+    # Build the human message
+    if existing_summary:
+        human_message_content = (
+            f"<Existing Summary> \n {existing_summary} \n </Existing Summary>\n\n"
+            f"<New Context> \n {most_recent_web_research} \n </New Context>"
+            f"Update the Existing Summary with the New Context on this topic: \n <User Input> \n {state.research_topic} \n </User Input>\n\n"
+        )
+    else:
+        human_message_content = (
+            f"<Context> \n {most_recent_web_research} \n </Context>"
+            f"Create a Summary using the Context on this topic: \n <User Input> \n {state.research_topic} \n </User Input>\n\n"
+        )
+    
+    messages = [
+        SystemMessage(content=summarizer_instructions),
+        HumanMessage(content=human_message_content)
+    ]
+    
+    # Stream the model's thinking process for summarization
+    console.print("\n[bold]Summarization Process:[/]\n")
+    response_stream = model.stream(messages)
+    thoughts, summary = stream_thinking_and_answer(response_stream, "📝 Summarization Thinking")
+    
+    display_panel(console, 
+                  f"""**Current SummaryState**: 
+
+                    - research_topic: {state.research_topic}
+                    - search_query: {state.search_query}
+                    - web_research_results: {state.web_research_results}
+                    - research_loop_count: {state.research_loop_count}
+                    - running_summary: {state.running_summary}
+                    - knowledge_gap: {state.knowledge_gap}
+                  """, 
+                  "📝 Research Summary created and updated state.running_summary", "green")
+    
+    return {"running_summary": summary}
 
 def identify_knowledge_gaps(state: SummaryState):
     """Identify knowledge gaps and generate a follow-up query."""
-    ...
+    console.print("\n[bold blue]Identifying knowledge gaps...[/]")
     
-    return {"search_query": 'follow_up_query'}
+    messages = [
+        SystemMessage(content=reflection_instructions.format(research_topic=state.research_topic)),
+        HumanMessage(content=f"Reflect on our existing knowledge: \n === \n {state.running_summary}, \n === \n And now identify a knowledge gap and generate a follow-up web search query:")
+    ]
+    
+    # Stream the model's thinking process for knowledge gap identification
+    console.print("\n[bold]Knowledge Gap Analysis Process:[/]\n")
+    response_stream = model.stream(messages)
+    thoughts, json_str = stream_thinking_and_answer(response_stream, "🔍 Reflection Thinking")
+    
+    # Try to parse the JSON response
+    try:
+        reflection = json.loads(json_str)
+        knowledge_gap = reflection.get("knowledge_gap", "No specific knowledge gap identified.")
+        follow_up_query = reflection.get("follow_up_query", f"More information about {state.research_topic}")
+    except json.JSONDecodeError:
+        # Fallback if JSON parsing fails
+        knowledge_gap = "Unable to parse the identified knowledge gap."
+        follow_up_query = f"More information about {state.research_topic}"
+    
+    display_panel(
+        console,
+        f"""**Current SummaryState**: 
+
+            - research_topic: {state.research_topic}
+            - search_query: {state.search_query}
+            - web_research_results: {state.web_research_results}
+            - research_loop_count: {state.research_loop_count}
+            - running_summary: {state.running_summary}
+            - knowledge_gap: {state.knowledge_gap}
+        """,
+        "🔍 Knowledge Gap Analysis done and updated state.search_query and state.knowledge_gap",
+        "yellow"
+    )
+    
+    return {"search_query": follow_up_query, "knowledge_gap": knowledge_gap}
 
 # Step 5: Finalize the summary
 def finalize_summary(state: SummaryState):
-    ...
-    return {"running_summary": 'final_summary'}
+    console.print("\n[bold]===== Final Research Report =====[/]\n")
+
+    # Format the final summary
+    final_summary = f"## Summary\n{state.running_summary}\n\n### Sources:\n"
+    for source in state.sources_gathered:
+        final_summary += f"{source}\n"
+
+    
+    display_panel(console, final_summary, "📊 Complete Research Report and updated state.running_summary", "purple")
+    return {"running_summary": final_summary}
 
 # Conditional function that decides whether to continue research or finalize summary
 def route_research(state: SummaryState):
-    if state.research_loop_count <= 2:
+    if state.research_loop_count <= 1:
+        display_panel(console, "web_research", "📊 Doing more research", "yellow")
         return "web_research"
     else:
+        display_panel(console, "finalize_summary", "📊 Finalizing the summary", "yellow")
         return "finalize_summary" 
 
 # Set up the graph
@@ -61,8 +237,31 @@ def setup_graph():
     
     return builder.compile()  
 
+def main():
+    """Main function to run the web research demo."""
+    console.print("[bold blue]===== Deep Research: Tracking the State =====\n")
+    
+    while True:
+        research_topic = Prompt.ask("[bold green]Enter a research topic[/] (or 'exit' to quit)")
+        
+        if research_topic.lower() in ("exit", "quit", "q"):
+            console.print("\n[bold blue]Thank you for using the Deep Research web integration demo.[/]")
+            break
+        
+        # Conduct research with two iterations
+        # Set up the graph
+        graph = setup_graph()
+
+        def stream_graph_updates():
+            for event in graph.stream({"research_topic": research_topic}):
+                # Extract the node name and state from the event
+                node_name = next(iter(event.keys()), None)
+
+                print(node_name)
+
+        stream_graph_updates()
+        
+        console.print("\n" + "-" * 80 + "\n")
 
 if __name__ == "__main__":
-
-    graph = setup_graph()
-    display(Image(graph.get_graph().draw_mermaid_png()))    
+    main()
