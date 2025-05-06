@@ -17,23 +17,17 @@ Your launched application should look like this when running your research:
 
 To launch the web application:
 
-1. Install the required dependencies:
+1. Start the FastAPI server:
 
-```bash
-pip install -r requirements.txt
-```
+    ```bash
+    uvicorn app.main:app --reload
+    ```
 
-2. Start the FastAPI server:
+2. Open your browser and navigate to:
 
-```bash
-uvicorn app.main:app --reload
-```
-
-3. Open your browser and navigate to:
-
-```
-http://localhost:8000
-```
+    ```
+    http://localhost:8000
+    ```
 
 ## **Using the Web Interface**
 
@@ -45,8 +39,14 @@ The web application features a clean, intuitive interface:
 4. **Thinking Process**: Click the thought bubble icon to view the AI's reasoning process
 5. **Final Report**: View the comprehensive research report with citations
 
+## Optional Step: Deploy Your App To Azure
+
+ You can deploy the full application to the cloud and generate a shareable link by following the instructions in the official Deep Research Azure sample repostory:
+
+* [Deploy the app to Azure](https://github.com/Azure-Samples/deepresearch)
+
 ## **Congratulations!**
 
-You've successfully built and deployed a Deep Researcher using DeepSeek R1, LangChain, and FastAPI!
+You've successfully built a Deep Researcher using DeepSeek R1, LangChain, and FastAPI!
 
 Checkout the [Summary](summary.md) to see an overview of what you learnt and navigate to the [Resources](resources.md) page for links to access this lab and more at home! 

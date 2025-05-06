@@ -26,6 +26,7 @@ This process will give us the high quality results but veers away from the linea
 ### **States in LangGraph**
 
 One of the things to note about this process is that we have to keep track of the **state** of the running summary and web results so we can update them with each iteration. LangGraph allows us to do this by creating an overall `State` class with different variables that can be updated and passed between steps. 
+
 For this project we create a `SummaryState` that looks like this:
 
 
@@ -71,7 +72,7 @@ If the `web_research` function is returned LangGraph will call that function, pa
 ## **Lab Excercise**
 
 1. Examine the **reflection_instructions** in `prompts.py` and see how this is used to prompt the model to generate a thoughtful follow up query.
-2. Run the following command to visualize how the SummaryStae is updated using LangGraph, run the following command:
+2. With each function (node) the state is updated. Run the following command to visualize how this is done using LangGraph:
 
     ```python
     python lab3a_reflection.py
