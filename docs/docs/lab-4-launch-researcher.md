@@ -49,4 +49,4 @@ The web application features a clean, intuitive interface:
 
 You've successfully built and deployed a Deep Researcher using DeepSeek R1, LangChain, and FastAPI!
 
-Checkout the [Summary]() to see an overview of what you learnt and navigate to the [Resources]() page for links to access this lab and more at home! 
+Checkout the [Summary](summary.md) to see an overview of what you learnt and navigate to the [Resources](resources.md) page for links to access this lab and more at home! 

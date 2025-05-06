@@ -27,13 +27,12 @@
 
             1. A browser window will open automatically, select **Work or school account** and click **Next**.
 
-            1. Use the **Username** and **Password** found in the **top section** of the **Resources** tab in the lab environment.
+            2. Use the **Username** and **Password** found in the **top section** of the **Resources** tab in the lab environment.
 
-            2. Select **OK**, then **Done**.
+            3. Select **OK**, then **Done**.
 
-    3. Then select the **Default** subscription from the command line.
 
-    4. Stay in the terminal window for the next step.
+    3. Stay in the terminal window for the next step.
 
     ## **Open the Workshop and setup your Tavily account**
 
@@ -52,7 +51,8 @@
         ;
         ```
 
-        This command will take a few minutes to complete. While you wait, navigate to the Tavily home page that should already be opened as a tab in your browser. 
+        !!! warning
+            This command will take a few minutes to complete. While you wait, navigate to the Tavily home page that should already be opened as a tab in your browser. 
 
 
     2. We will be using [Tavily](https://tavily.com/) to give our deep researcher access to the internet. Once on the Tavily page, click the sign up button and create an account. 
