@@ -106,7 +106,7 @@
     !!! tips
         1. The **Burger Menu** in the right-hand panel of the skillable lab environment offers additional features, including the **Split Window View** and the option to end the lab. The **Split Window View** allows you to maximize the lab environment to full screen, optimizing screen space. The lab's **Instructions** and **Resources** panel will open in a separate window.
 
-        2. For an easier view of the lab guide and VS Code open the lab guide in a browser tab outside the lab environment and then do a 3/4 to 1/4 screen split like this: 
+        2. For an easier view of the lab guide and VS Code copy and paste this url `aka.ms/build/lab331` in a browser tab outside the lab environment and then do a 3/4 to 1/4 screen split like this: 
 
             ![guide split](./media/screen-split.png)
 
