@@ -787,6 +787,9 @@ This is the code required:</p>
 <p>Run the following command in the terminal to try out web search:</p>
 <div class="language-powershell highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">python</span> <span class="n">lab2a_web_research</span><span class="p">.</span><span class="n">py</span>
 </span></code></pre></div>
+</li>
+<li>
+<p>Update the code to test out returning more than one result and try the advanced search! </p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Tavily offers several options to <strong>alter the quality and quantity</strong> of the search_results. 
@@ -794,9 +797,12 @@ To specify the number of search results use the <code>max_results</code> paramet
 To determine the depth of the search set the <code>search_depth</code> parameter to <code>basic</code> or <code>advanced</code>. 
 Advanced returns higher quality results but takes longer. </p>
 </div>
-</li>
-<li>
-<p>Update the code to test out returning more than one result and try the advanced search!</p>
+<p>This should look like updating the code in the <code>lab2a_web_research.py</code> to search using the tavily client like this:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">search_results</span> <span class="o">=</span> <span class="n">tavily_client</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">max_results</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">search_depth</span><span class="o">=</span><span class="s1">&#39;advanced&#39;</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Then test the changes by running the following line in the terminal:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">python</span> <span class="n">lab2a_web_research</span><span class="p">.</span><span class="n">py</span>
+</span></code></pre></div>
 </li>
 </ol>
 <h2 id="next-steps"><strong>Next Steps</strong></h2>
