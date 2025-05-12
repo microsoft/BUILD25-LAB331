@@ -25,12 +25,11 @@
         !!! note
             You'll be prompted to open a browser link and log in to your Azure account.
 
-            1. A browser window will open automatically, select **Work or school account** and click **Next**.
+            1. A browser window will open automatically
 
             2. Use the **Username** and **Password** found in the **top section** of the **Resources** tab in the lab environment.
 
             3. Select **OK**, then **Done**.
-
 
     3. Stay in the terminal window for the next step.
 
@@ -55,15 +54,15 @@
             This command will take a few minutes to complete. While you wait, navigate to the Tavily home page that should already be opened as a tab in your browser. 
 
 
-    2. We will be using [Tavily](https://tavily.com/) to give our deep researcher access to the internet. Once on the Tavily page, click the sign up button and create an account. 
+    2. We will be using [Tavily](https://tavily.com/) to give our deep researcher access to the internet. Once on the Tavily page, click the login in button and then click sign up to create an account. 
 
         !!! note
             You will need to use either your personal email address or your Github account to sign up since email requires verification. 
 
 
-        Click the signup button and complete the sign up process 
+        Click the signup link and complete the sign up process 
 
-        ![click the signup button](../media/tavily-signup.jpg){ width="800" }
+        <img src="../media/tavily-sign-highlight.jpg" alt="click the signup button" width="800" height="600">
 
         Once sign up is complete you should see a page with an API Key that looks like this. You will use this key later, so minimize the page for now and return to the terminal. 
 
@@ -84,6 +83,14 @@
     ### **Create the .env file**
 
     1. Open a new terminal in VSCode. 
+    
+        To do this either:
+
+        - Click the hamburger menu, select terminal and click 'New Terminal' 
+
+        <img src="../media/terminal-ex.png" alt="click terminal example" width="800">
+
+        - Or use **CTRL + SHIFT + `**
 
     2. To create a `.env` file with the variables needed for this workshop click on the `instructions` tab in your Skillable lab manual. Click on the command under Lab Guide and patse it in the terminal. Press enter to run the command and follow the instructions.
 
@@ -97,9 +104,14 @@
     ## **Pro Tips**
 
     !!! tips
-        1. The **Burger Menu** in the right-hand panel of the lab environment offers additional features, including the **Split Window View** and the option to end the lab. The **Split Window View** allows you to maximize the lab environment to full screen, optimizing screen space. The lab's **Instructions** and **Resources** panel will open in a separate window.
-        2. If the lab instructions are slow to scroll in the lab environment, try copying the instructions’ URL and opening it in **your computer’s local browser** for a smoother experience.
-        3. If you have trouble viewing an image, simply **click the image to enlarge it**.
+        1. The **Burger Menu** in the right-hand panel of the skillable lab environment offers additional features, including the **Split Window View** and the option to end the lab. The **Split Window View** allows you to maximize the lab environment to full screen, optimizing screen space. The lab's **Instructions** and **Resources** panel will open in a separate window.
+
+        2. For an easier view of the lab guide and VS Code open the lab guide in a browser tab outside the lab environment and then do a 3/4 to 1/4 screen split like this: 
+
+            ![guide split](./media/screen-split.png)
+
+        3. If the lab instructions are slow to scroll in the lab environment, try copying the instructions’ URL and opening it in **your computer’s local browser** for a smoother experience.
+        4. If you have trouble viewing an image, simply **click the image to enlarge it**.
 
     ## **Next Steps**
 
