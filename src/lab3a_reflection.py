@@ -62,7 +62,10 @@ def generate_search_query(state: SummaryState):
 
                     - research_topic: {state.research_topic}
                     - search_query: {state.search_query}
-                    - web_research_results: {state.web_research_results}
+
+                    - web_research_results: 
+                    {state.web_research_results}
+
                     - research_loop_count: {state.research_loop_count}
                     - running_summary: {state.running_summary}
                     - knowledge_gap: {state.knowledge_gap}
@@ -93,7 +96,10 @@ def perform_web_search(state: SummaryState):
 
                     - research_topic: {state.research_topic}
                     - search_query: {state.search_query}
-                    - web_research_results: {state.web_research_results}
+
+                    - web_research_results: 
+                    {state.web_research_results}
+
                     - research_loop_count: {state.research_loop_count}
                     - running_summary: {state.running_summary}
                     - knowledge_gap: {state.knowledge_gap}
@@ -145,7 +151,10 @@ def summarize_search_results(state: SummaryState):
 
                     - research_topic: {state.research_topic}
                     - search_query: {state.search_query}
-                    - web_research_results: {state.web_research_results}
+
+                    - web_research_results: 
+                    {state.web_research_results}
+
                     - research_loop_count: {state.research_loop_count}
                     - running_summary: {state.running_summary}
                     - knowledge_gap: {state.knowledge_gap}
@@ -184,7 +193,10 @@ def identify_knowledge_gaps(state: SummaryState):
 
             - research_topic: {state.research_topic}
             - search_query: {state.search_query}
-            - web_research_results: {state.web_research_results}
+
+            - web_research_results: 
+            {state.web_research_results}
+            
             - research_loop_count: {state.research_loop_count}
             - running_summary: {state.running_summary}
             - knowledge_gap: {state.knowledge_gap}

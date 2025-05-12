@@ -97,14 +97,26 @@ Tavily retrieves information from the web about the topic and displays snippets 
     ```powershell
     python lab2a_web_research.py
     ```
+    
+3. Update the code to test out returning more than one result and try the advanced search! 
 
     !!! tip
         Tavily offers several options to **alter the quality and quantity** of the search_results. 
         To specify the number of search results use the `max_results` parameter. 
         To determine the depth of the search set the `search_depth` parameter to `basic` or `advanced`. 
         Advanced returns higher quality results but takes longer. 
-    
-3. Update the code to test out returning more than one result and try the advanced search!
+
+    This should look like updating the code in the `lab2a_web_research.py` to search using the tavily client like this:
+
+    ```python
+    search_results = tavily_client.search(query, max_results=2, search_depth='advanced')
+    ```
+
+    Then test the changes by running the following line in the terminal:
+
+    ```powershell
+    python lab2a_web_research.py
+    ```
 
 ## **Next Steps**
 

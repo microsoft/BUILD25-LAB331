@@ -8,9 +8,9 @@ When combined with tools to access the web, reasoning models are particularly go
 
 ### Some popular reasoning models include:
 
-- [DeepSeek R1](https://ai.azure.com/explore/models/deepseek-r1/version/1/registry/azureml-deepseek?tid=5ab6ea2c-c0ea-4559-bf19-6a56e94ea839), 
-- [o3 and o1](https://ai.azure.com/explore/models/o3/version/2025-04-16/registry/azure-openai?tid=5ab6ea2c-c0ea-4559-bf19-6a56e94ea839)
-- [Phi-4-reasoning](https://ai.azure.com/explore/models/Phi-4-reasoning/version/1/registry/azureml?tid=5ab6ea2c-c0ea-4559-bf19-6a56e94ea839).
+- [DeepSeek R1](https://github.com/deepseek-ai/DeepSeek-R1), 
+- [o3 and o1](https://openai.com/index/introducing-o3-and-o4-mini/)
+- [Phi-4-reasoning](https://techcommunity.microsoft.com/blog/educatordeveloperblog/showcasing-phi-4-reasoning-a-game-changer-for-ai-developers/4409892).
 
 
 ## **Getting started with DeepSeek R1**
