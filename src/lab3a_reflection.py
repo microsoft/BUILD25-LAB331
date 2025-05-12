@@ -62,15 +62,12 @@ def generate_search_query(state: SummaryState):
 
                     - research_topic: {state.research_topic}
                     - search_query: {state.search_query}
-
-                    - web_research_results: 
-                    {state.web_research_results}
-
+                    - web_research_results: {state.web_research_results}
                     - research_loop_count: {state.research_loop_count}
-                    - running_summary: {state.running_summary}
+                    - running_summary (snippet): {state.running_summary}
                     - knowledge_gap: {state.knowledge_gap}
                   """, 
-                  "🔍 Generated Search Query and updated state.search_query", 
+                  "🔍 Generated Search Query", 
                   "green")
     
     return {"search_query": query}
@@ -86,27 +83,24 @@ def perform_web_search(state: SummaryState):
     ) as progress:
         progress.add_task("Searching the web...", total=None)
         search_results = tavily_client.search(query=state.search_query, max_results=3)
-    
-    # Display search result snippets
-    console.print("\n[bold]Search Results:[/]")
-    for i, result in enumerate(search_results["results"], 1):
-        display_panel(
-            console,
-            f"""**Current SummaryState**: 
+    # Display the updated summary state
+    query_json = json.loads(state.search_query)
+    query = query_json['query']
 
-                    - research_topic: {state.research_topic}
-                    - search_query: {state.search_query}
+    display_panel(
+        console,
+        f"""**Current SummaryState**: 
 
-                    - web_research_results: 
-                    {state.web_research_results}
-
-                    - research_loop_count: {state.research_loop_count}
-                    - running_summary: {state.running_summary}
-                    - knowledge_gap: {state.knowledge_gap}
-                  """,
-            f"Result {i}",
-            "blue"
-        )
+                - research_topic: {state.research_topic}
+                - search_query: {query}
+                - web_research_results: {state.web_research_results}
+                - research_loop_count: {state.research_loop_count}
+                - running_summary (snippet): {state.running_summary}
+                - knowledge_gap: {state.knowledge_gap}
+                """,
+                "🔍 Retrieved Search Results", 
+        "blue"
+    )
     
     search_str = deduplicate_and_format_sources(search_results, max_tokens_per_source=1000)
     
@@ -146,20 +140,23 @@ def summarize_search_results(state: SummaryState):
     response_stream = model.stream(messages)
     thoughts, summary = stream_thinking_and_answer(response_stream, "📝 Summarization Thinking")
     
+    query_json = json.loads(state.search_query)
+    query = query_json['query']
+
     display_panel(console, 
                   f"""**Current SummaryState**: 
 
                     - research_topic: {state.research_topic}
-                    - search_query: {state.search_query}
-
+                    - search_query: {query}
                     - web_research_results: 
+
                     {state.web_research_results}
 
                     - research_loop_count: {state.research_loop_count}
-                    - running_summary: {state.running_summary}
+                    - running_summary (snippet): {state.running_summary}
                     - knowledge_gap: {state.knowledge_gap}
                   """, 
-                  "📝 Research Summary created and updated state.running_summary", "green")
+                  "📝 Research Summary created", "green")
     
     return {"running_summary": summary}
 
@@ -186,19 +183,25 @@ def identify_knowledge_gaps(state: SummaryState):
         # Fallback if JSON parsing fails
         knowledge_gap = "Unable to parse the identified knowledge gap."
         follow_up_query = f"More information about {state.research_topic}"
+
+    query_json = json.loads(state.search_query)
+    query = query_json['query']
     
     display_panel(
         console,
         f"""**Current SummaryState**: 
 
             - research_topic: {state.research_topic}
-            - search_query: {state.search_query}
-
+            - search_query: {query}
             - web_research_results: 
+
             {state.web_research_results}
-            
+
             - research_loop_count: {state.research_loop_count}
-            - running_summary: {state.running_summary}
+            - running_summary (snippet): 
+            
+            {state.running_summary}
+
             - knowledge_gap: {state.knowledge_gap}
         """,
         "🔍 Knowledge Gap Analysis done and updated state.search_query and state.knowledge_gap",
@@ -222,7 +225,7 @@ def finalize_summary(state: SummaryState):
 
 # Conditional function that decides whether to continue research or finalize summary
 def route_research(state: SummaryState):
-    if state.research_loop_count <= 1:
+    if state.research_loop_count <= 0:
         display_panel(console, "web_research", "📊 Doing more research", "yellow")
         return "web_research"
     else:
@@ -268,9 +271,6 @@ def main():
             for event in graph.stream({"research_topic": research_topic}):
                 # Extract the node name and state from the event
                 node_name = next(iter(event.keys()), None)
-
-                print(node_name)
-
         stream_graph_updates()
         
         console.print("\n" + "-" * 80 + "\n")

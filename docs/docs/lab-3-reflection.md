@@ -78,6 +78,8 @@ If the `web_research` function is returned LangGraph will call that function, pa
     python lab3a_reflection.py
     ```
 
+    When the final summary has been generated scroll up and look at how the state is updated at each node. Remember a node is just a function that can alter the state. 
+
 ## **Putting it all together**
 
 You can now put everything we've learnt so far together to complete all of the deep researcher steps for 2 iterations! Our final application which we will launch after this will run the research through more iterations and you can update the system prompt for the summarization to increase or decrease the length of the final report.  
