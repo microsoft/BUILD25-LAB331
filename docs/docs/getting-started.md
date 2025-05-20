@@ -119,7 +119,7 @@
 
 === "**Self Paced Attendees**"
 
-    The instructions on this page assume you are following this workshop on your own outside of Microsoft Build. To run this lab we will use DeepSeek R1 through Github Models Free tier. If you want to deploy this application you can follow the instructions in the official [Deep Research Azure Sample Readme](https://github.com/Azure-Samples/deepresearch) to deploy with Azure resources.
+    The instructions on this page assume you are following this workshop on your own outside of Microsoft Build. To run this lab we will use DeepSeek R1 through Github Models Free tier. If you run out of free tokens or want to deploy this application so you can use model access through Azure AI Foundry, follow the instructions in the official [Deep Research Azure Sample Readme](https://github.com/Azure-Samples/deepresearch) to deploy with Azure.
 
     ## **Introduction**
 
@@ -135,9 +135,17 @@
 
     1. In the root directory look for the `.env.sample` file and rename it to `.env`
 
+    2. Get your Github Token value by running the following command in the terminal: 
+
+        ```powershell
+        echo $GITHUB_TOKEN
+        ```
+
+        Copy the output and paste it as the value for AZURE_AI_API_KEY in your .env file.
+
     ## **Setup your Tavily account**
 
-    1. We will be using [Tavily](https://tavily.com/) to give our deep researcher access to the internet. Once on the Tavily page, click the login in button and then click sign up to create an account. 
+    1. We will be using Tavily to give our deep researcher access to the internet. Navgigate to [https://tavily.com/](https://tavily.com/) Once on the Tavily page, click the login in button and then click sign up to create an account. 
 
         !!! note
             You will need to use either your personal email address or your Github account to sign up since email requires verification. 
@@ -153,16 +161,18 @@
 
     2. Copy your Tavily API Key and paste it in the `.env` file as the `TAVILY_API_KEY` value.
 
+    3. Make sure to save the changes to your .env file
+
     ## **Setup your Python dev environment**
 
-    1. From the terminal window, execute the following commands to navigate to the relevant folder, set up a virtual environment, activate it, and install the required packages:
+    1. From the terminal window, execute the following commands to navigate to the relevant folder and install the required packages:
 
         ```powershell
-        ; python -m venv src/.venv `
-        ; src\.venv\Scripts\activate `
-        ; pip install -r src/requirements.txt `
-        ; cd src `
-        ;
+        cd src
+        ```
+
+        ```powershell
+        pip install -r requirements.txt 
         ```
         
     You can now begin with Lab 1! 
