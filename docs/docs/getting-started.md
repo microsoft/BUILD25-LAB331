@@ -119,6 +119,68 @@
 
 === "**Self Paced Attendees**"
 
-    If you are following this workshop outside of a Skillable environment follow the instructions [here](https://github.com/Azure-Samples/deepresearch/blob/main/workshop/selfpaced.md) to setup and then continue to [Lab 1](lab-1-introduction-to-reasoning-models.md). 
+    The instructions on this page assume you are following this workshop on your own outside of Microsoft Build. To run this lab we will use DeepSeek R1 through Github Models Free tier. If you want to deploy this application you can follow the instructions in the official [Deep Research Azure Sample Readme](https://github.com/Azure-Samples/deepresearch) to deploy with Azure resources.
+
+    ## **Introduction**
+
+    This workshop is designed to teach you how to use Reasoning Models, like DeepSeek R1 and utilize tools and Reflection style architecture with LangChain to do deep research. It consists of multiple labs, each highlighting a specific feature of the process of building a deep researcher. The labs are meant to be completed in order, as each one builds on the knowledge and work from the previous lab.
+
+    ## **Open the project in Github Codespaces**
+
+    1. Start by opening the project in Codespaces. The button will open a web-based VS Code instance in your browser:
+   
+    [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/microsoft/BUILD25-LAB331)
+    
+    ## **Create a .env file**
+
+    1. In the root directory look for the `.env.sample` file and rename it to `.env`
+
+    ## **Setup your Tavily account**
+
+    1. We will be using [Tavily](https://tavily.com/) to give our deep researcher access to the internet. Once on the Tavily page, click the login in button and then click sign up to create an account. 
+
+        !!! note
+            You will need to use either your personal email address or your Github account to sign up since email requires verification. 
+
+
+        Click the signup link and complete the sign up process 
+
+        <img src="../media/tavily-sign-highlight.jpg" alt="click the signup button" width="800" height="600">
+
+        Once sign up is complete you should see a page with an API Key that looks like this: 
+
+        ![click the signup button](../media/tavily-api-page.png){ width="800" }
+
+    2. Copy your Tavily API Key and paste it in the `.env` file as the `TAVILY_API_KEY` value.
+
+    ## **Setup your Python dev environment**
+
+    1. From the terminal window, execute the following commands to navigate to the relevant folder, set up a virtual environment, activate it, and install the required packages:
+
+        ```powershell
+        ; python -m venv src/.venv `
+        ; src\.venv\Scripts\activate `
+        ; pip install -r src/requirements.txt `
+        ; cd src `
+        ;
+        ```
+        
+    You can now begin with Lab 1! 
+
+    ## **Pro Tips**
+
+    !!! tips
+        1. The **Burger Menu** in the right-hand panel of the skillable lab environment offers additional features, including the **Split Window View** and the option to end the lab. The **Split Window View** allows you to maximize the lab environment to full screen, optimizing screen space. The lab's **Instructions** and **Resources** panel will open in a separate window.
+
+        2. For an easier view of the lab guide and VS Code copy and paste this url `aka.ms/build/lab331` in a browser tab outside the lab environment and then do a 3/4 to 1/4 screen split like this: 
+
+            ![guide split](./media/screen-split.png)
+
+        3. If the lab instructions are slow to scroll in the lab environment, try copying the instructions’ URL and opening it in **your computer’s local browser** for a smoother experience.
+        4. If you have trouble viewing an image, simply **click the image to enlarge it**.
+
+    ## **Next Steps**
+
+    Once your environment is set up, proceed to [Lab 1: Introduction to Reasoning Models](lab-1-introduction-to-reasoning-models.md) to begin building your research assistant.
 
 
