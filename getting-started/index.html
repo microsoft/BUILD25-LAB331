@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.13">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
     
     
       
@@ -411,6 +411,69 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#introduction_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#open-the-project-in-github-codespaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      Open the project in Github Codespaces
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-a-env-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a .env file
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup-your-tavily-account" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setup your Tavily account
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup-your-python-dev-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setup your Python dev environment
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pro-tips_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pro Tips
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -707,6 +770,69 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#introduction_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#open-the-project-in-github-codespaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      Open the project in Github Codespaces
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-a-env-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a .env file
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup-your-tavily-account" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setup your Tavily account
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup-your-python-dev-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setup your Python dev environment
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pro-tips_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pro Tips
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -852,7 +978,76 @@
 <p>Once your environment is set up, proceed to <a href="../lab-1-introduction-to-reasoning-models/">Lab 1: Introduction to Reasoning Models</a> to begin building your research assistant.</p>
 </div>
 <div class="tabbed-block">
-<p>If you are following this workshop outside of a Skillable environment follow the instructions <a href="https://github.com/Azure-Samples/deepresearch/blob/main/workshop/selfpaced.md">here</a> to setup and then continue to <a href="../lab-1-introduction-to-reasoning-models/">Lab 1</a>. </p>
+<p>The instructions on this page assume you are following this workshop on your own outside of Microsoft Build. To run this lab we will use DeepSeek R1 through Github Models Free tier. If you run out of free tokens or want to deploy this application so you can use model access through Azure AI Foundry, follow the instructions in the official <a href="https://github.com/Azure-Samples/deepresearch">Deep Research Azure Sample Readme</a> to deploy with Azure.</p>
+<h2 id="introduction_1"><strong>Introduction</strong></h2>
+<p>This workshop is designed to teach you how to use Reasoning Models, like DeepSeek R1 and utilize tools and Reflection style architecture with LangChain to do deep research. It consists of multiple labs, each highlighting a specific feature of the process of building a deep researcher. The labs are meant to be completed in order, as each one builds on the knowledge and work from the previous lab.</p>
+<h2 id="open-the-project-in-github-codespaces"><strong>Open the project in Github Codespaces</strong></h2>
+<ol>
+<li>Start by opening the project in Codespaces. The button will open a web-based VS Code instance in your browser:</li>
+</ol>
+<p><a href="https://codespaces.new/microsoft/BUILD25-LAB331"><img alt="Open in GitHub Codespaces" src="https://github.com/codespaces/badge.svg" /></a></p>
+<h2 id="create-a-env-file"><strong>Create a .env file</strong></h2>
+<ol>
+<li>
+<p>In the root directory look for the <code>.env.sample</code> file and rename it to <code>.env</code></p>
+</li>
+<li>
+<p>Get your Github Token value by running the following command in the terminal: </p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">echo </span><span class="nv">$GITHUB_TOKEN</span>
+</span></code></pre></div>
+<p>Copy the output and paste it as the value for AZURE_AI_API_KEY in your .env file.</p>
+</li>
+</ol>
+<h2 id="setup-your-tavily-account"><strong>Setup your Tavily account</strong></h2>
+<ol>
+<li>
+<p>We will be using Tavily to give our deep researcher access to the internet. Navgigate to <a href="https://tavily.com/">https://tavily.com/</a> Once on the Tavily page, click the login in button and then click sign up to create an account. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You will need to use either your personal email address or your Github account to sign up since email requires verification. </p>
+</div>
+<p>Click the signup link and complete the sign up process </p>
+<p><a class="glightbox" href="../media/tavily-sign-highlight.jpg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="../media/tavily-sign-highlight.jpg" alt="click the signup button" width="800" height="600"></a></p>
+<p>Once sign up is complete you should see a page with an API Key that looks like this: </p>
+<p><a class="glightbox" href="../media/tavily-api-page.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="click the signup button" src="../media/tavily-api-page.png" width="800" /></a></p>
+</li>
+<li>
+<p>Copy your Tavily API Key and paste it in the <code>.env</code> file as the <code>TAVILY_API_KEY</code> value.</p>
+</li>
+<li>
+<p>Make sure to save the changes to your .env file</p>
+</li>
+</ol>
+<h2 id="setup-your-python-dev-environment"><strong>Setup your Python dev environment</strong></h2>
+<ol>
+<li>
+<p>From the terminal window, execute the following commands to navigate to the relevant folder and install the required packages:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">cd </span><span class="n">src</span>
+</span></code></pre></div>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">pip</span> <span class="n">install</span> <span class="n">-r</span> <span class="n">requirements</span><span class="p">.</span><span class="n">txt</span> 
+</span></code></pre></div>
+</li>
+</ol>
+<p>You can now begin with Lab 1! </p>
+<h2 id="pro-tips_1"><strong>Pro Tips</strong></h2>
+<div class="admonition tips">
+<p class="admonition-title">Tips</p>
+<ol>
+<li>
+<p>The <strong>Burger Menu</strong> in the right-hand panel of the skillable lab environment offers additional features, including the <strong>Split Window View</strong> and the option to end the lab. The <strong>Split Window View</strong> allows you to maximize the lab environment to full screen, optimizing screen space. The lab's <strong>Instructions</strong> and <strong>Resources</strong> panel will open in a separate window.</p>
+</li>
+<li>
+<p>For an easier view of the lab guide and VS Code copy and paste this url <code>aka.ms/build/lab331</code> in a browser tab outside the lab environment and then do a 3/4 to 1/4 screen split like this: </p>
+<p><a class="glightbox" href="../media/screen-split.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="guide split" src="../media/screen-split.png" /></a></p>
+</li>
+<li>
+<p>If the lab instructions are slow to scroll in the lab environment, try copying the instructions’ URL and opening it in <strong>your computer’s local browser</strong> for a smoother experience.</p>
+</li>
+<li>If you have trouble viewing an image, simply <strong>click the image to enlarge it</strong>.</li>
+</ol>
+</div>
+<h2 id="next-steps_1"><strong>Next Steps</strong></h2>
+<p>Once your environment is set up, proceed to <a href="../lab-1-introduction-to-reasoning-models/">Lab 1: Introduction to Reasoning Models</a> to begin building your research assistant.</p>
 </div>
 </div>
 </div>
